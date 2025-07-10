@@ -69,7 +69,7 @@ namespace ProjetoLivraria.DAO
                 catch (Exception ex)
                 {
                     {
-                        throw new Exception("Erro ao tentar cadastrar novo tipo de livro.");
+                        throw new Exception("Erro ao tentar cadastrar novo tipo de livro");
                     }
                 }
                 return liQtdRegistrosInseridos;
