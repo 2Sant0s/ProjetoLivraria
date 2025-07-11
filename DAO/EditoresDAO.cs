@@ -49,6 +49,7 @@ namespace ProjetoLivraria.DAO
             }
             return loListEditores;
         }
+        // MÉTODO INSERÇÃO
         public int InsereEditor(Editores aoNovoEditor)
         {
             if (aoNovoEditor == null)
@@ -75,6 +76,7 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
+        // MÉTODO REMOÇÃO
         public int RemoveEditor(Editores aoNovoEditor)
         {
             if (aoNovoEditor == null)
@@ -97,7 +99,7 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
-
+        // MÉTODO ATUALIZAÇÃO
         public int AtualizaEditor(Editores aoNovoEditor)
         {
             if (aoNovoEditor == null)
