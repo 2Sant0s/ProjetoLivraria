@@ -81,6 +81,7 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
+        // MÉTODO REMOÇÃO
         public int removeLivro(Livro aoNovoLivro)
         {
             if (aoNovoLivro == null)
@@ -103,6 +104,7 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
+        // MÉTODO ATUALIZAÇÃO
         public int atualizaLivro(Livro aoNovoLivro)
         {
             if (aoNovoLivro == null)
