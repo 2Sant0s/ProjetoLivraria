@@ -1,5 +1,4 @@
-﻿using DevExpress.XtraPrinting;
-using ProjetoLivraria.Models;
+﻿using ProjetoLivraria.Models;
 using System;
 using System.ComponentModel;
 using System.Configuration;
