@@ -49,6 +49,7 @@ namespace ProjetoLivraria.DAO
             }
             return loTipoLivro;
         }
+        // MÉTODO INSERÇÃO
         public int InseriTipoLivro(TipoLivro aoNovoTipoLivro)
         {
             if (aoNovoTipoLivro == null)
@@ -75,9 +76,52 @@ namespace ProjetoLivraria.DAO
                 return liQtdRegistrosInseridos;
             }
         }
-        public int RemoveAutor(TipoLivro aoTipoLivro)
+        // MÉTODO REMOÇÃO
+        public int RemoveTipoLivro(TipoLivro aoNovoTipoLivro)
         {
+            if (aoNovoTipoLivro == null)
+                throw new NullReferenceException();
+            int liQtdRegistrosInseridos = 0;
 
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("DELETE FROM TIL_TIPO_LIVRO WHERE ID = @idTipoLivro", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoNovoTipoLivro.til_id_tipo_livro));
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro ao tentar remover tipo do livro.");
+                }
+            }
+            return liQtdRegistrosInseridos;
+        }
+        // MÉTODO ATUALIZAÇÃO
+        public int atualizaTipoLivro(TipoLivro aoNovoTipoLivro)
+        {
+            if (aoNovoTipoLivro == null)
+                throw new NullReferenceException();
+            int liQtdRegistrosInseridos = 0;
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+                    ioQuery = new SqlCommand("UPDATE FROM TIL_TIPO_LIVRO SET TIL_DS_DESCRICAO = @descricaoTipoLivro WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoNovoTipoLivro.til_id_tipo_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@descricaoTipoLivro", aoNovoTipoLivro.til_ds_descricao));
+                    liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro ao tentar atualizar tipo de livro.");
+                }
+            }
+            return liQtdRegistrosInseridos;
         }
     }
 }

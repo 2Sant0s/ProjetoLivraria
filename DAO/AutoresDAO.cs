@@ -115,13 +115,18 @@ namespace ProjetoLivraria.DAO
                 try
                 {
                     ioConexao.Open();
-                    ioQuery = new SqlCommand("UPDATE FROM AUT_AUTORES WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
+                    ioQuery = new SqlCommand("UPDATE FROM AUT_AUTORES SET AUT_NM_NOME = @nomeAutor, AUT_NM_SOBRENOME = @sobrenomeAutor, " +
+                        "AUT_DS_EMAIL = @emailAutor, AUT_DS_RESUMO = @resumoAutor WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoNovoAutor.aut_id_autor));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", aoNovoAutor.aut_nm_autor));
+                    ioQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", aoNovoAutor.aut_nm_sobrenome));
+                    ioQuery.Parameters.Add(new SqlParameter("@emailAutor", aoNovoAutor.aut_ds_email));
+                    ioQuery.Parameters.Add(new SqlParameter("@resumoAutor", aoNovoAutor.aut_ds_resumo));
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Erro ao tentar atualizar autor.");
+                    throw new Exception("Erro ao tentar atualizar informações do autor.");
                 }
             }
             return liQtdRegistrosInseridos;
