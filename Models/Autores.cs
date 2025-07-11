@@ -11,7 +11,7 @@ namespace ProjetoLivraria.Models
         public string aut_ds_email { get; set; }
         public string aut_ds_resumo { get; set; }
 
-       public Autores(decimal adcIdAutor, string asNomeAutor, string asSobrenomeAutor, string asEmailAutor)
+        public Autores(decimal adcIdAutor, string asNomeAutor, string asSobrenomeAutor, string asEmailAutor)
         {
             this.aut_id_autor = adcIdAutor;
             this.aut_nm_autor = asNomeAutor;

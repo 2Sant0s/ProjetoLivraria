@@ -49,7 +49,7 @@ namespace ProjetoLivraria.DAO
             return loTipoLivro;
         }
         // MÉTODO INSERÇÃO
-        public int InseriTipoLivro(TipoLivro aoNovoTipoLivro)
+        public int InsereTipoLivro(TipoLivro aoNovoTipoLivro)
         {
             if (aoNovoTipoLivro == null)
                 throw new NullReferenceException();
