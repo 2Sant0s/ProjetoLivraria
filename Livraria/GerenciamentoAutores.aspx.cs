@@ -11,7 +11,6 @@ namespace ProjetoLivraria.Livraria
     public partial class GerenciamentoAutores : Page
     {
         AutoresDAO ioAutoresDAO = new AutoresDAO();
-
         public BindingList<Autores> ListaAutores
         {
             get
@@ -40,9 +39,9 @@ namespace ProjetoLivraria.Livraria
             try
             {
                 decimal IdcIdAutor = this.ListaAutores.OrderByDescending(a => a.aut_id_autor).First().aut_id_autor + 1;
-                string isNomeAutor = this.tbxCadastroNomeAutor.Text;
-                string isSobrenomeAutor = this.tbxCadastroSobrenomeAutor.Text;
-                string isEmailAutor = this.tbxCadastroSobrenomeAutor.Text;
+                string isNomeAutor = this.txbCadastroNomeAutor.Text;
+                string isSobrenomeAutor = this.txbCadastroEmailAutor.Text;
+                string isEmailAutor = this.txbCadastroEmailAutor.Text;
 
                 Autores loAutor = new Autores(IdcIdAutor, isNomeAutor, isSobrenomeAutor, isEmailAutor);
                 this.ioAutoresDAO.InsereAutor(loAutor);
@@ -53,9 +52,9 @@ namespace ProjetoLivraria.Livraria
             {
                 HttpContext.Current.Response.Write("<script>alert('Erro no cadastro do Autor')</script>");
             }
-            this.tbxCadastroNomeAutor.Text = String.Empty;
-            this.tbxCadastroSobrenomeAutor.Text = String.Empty;
-            this.tbxCadastroEmailAutor.Text = String.Empty;
+            this.txbCadastroNomeAutor.Text = String.Empty;
+            this.txbCadastroSobrenomeAutor.Text = String.Empty;
+            this.txbCadastroEmailAutor.Text = String.Empty;
         }
     }
 }
