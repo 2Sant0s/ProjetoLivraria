@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ProjetoLivraria.DAO
 {
@@ -139,5 +140,49 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
+        //busca livros pelo autor
+        public BindingList<Livro> FindLivrosByAutor(Autores aoNovoAutor)
+        {
+            BindingList<Livro> loListLivros = new BindingList<Livro>();
+
+            if (aoNovoAutor == null)
+                throw new ArgumentNullException();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    ioQuery = new SqlCommand("COMANDO ...", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoNovoAutor.aut_id_autor));
+
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        while (loReader.Read())
+                        {
+                            Livro loLivro = new Livro(
+                                loReader.GetDecimal(0),
+                                loReader.GetDecimal(1),
+                                loReader.GetDecimal(2),
+                                loReader.GetString(3), 
+                                loReader.GetDecimal(4),
+                                loReader.GetDecimal(5),
+                                loReader.GetString(6), 
+                                loReader.GetInt32(7) 
+                            );
+                            loListLivros.Add(loLivro);
+                        }
+                        loReader.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro ao tentar buscar livros pelo autor.");
+                }
+            }
+            return loListLivros;
+        }
+
     }
 }

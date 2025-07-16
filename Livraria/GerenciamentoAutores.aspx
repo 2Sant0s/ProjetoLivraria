@@ -33,28 +33,59 @@
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
 
-                        <dx:LayoutItem Caption="E-mail" ColSpan="2">
-                            <layoutitemnestedcontrolcollection>
-                                <dx:LayoutItemNestedControlContainer runat="server">
-                                    <dx:ASPxTextBox ID="txbCadastroEmailAutor" runat="server" Width="100%">
-                                        <validationsettings validationgroup="MyGroup" validateonleave="true" display="Dynamic">
-                                            <requiredfield isrequired="true" errortext="Digite o email do Autor" />
-                                            <regularexpression errortext="Email inválido" validationexpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
-                                        </validationsettings>
-                                    </dx:ASPxTextBox>
-                                </dx:LayoutItemNestedControlContainer>
-                            </layoutitemnestedcontrolcollection>
-                        </dx:LayoutItem>
+                    <dx:LayoutItem Caption="E-mail" ColSpan="2">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxTextBox ID="txbCadastroEmailAutor" runat="server" Width="100%">
+                                    <ValidationSettings ValidationGroup="MyGroup" ValidateOnLeave="true" Display="Dynamic">
+                                        <RequiredField IsRequired="true" ErrorText="Digite o email do Autor" />
+                                        <RegularExpression ErrorText="Email inválido" ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
+                                    </ValidationSettings>
+                                </dx:ASPxTextBox>
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
 
-                        <dx:LayoutItem Caption="" ColSpan="2">
-                            <layoutitemnestedcontrolcollection>
-                                <dx:LayoutItemNestedControlContainer runat="server">
-                                    <dx:ASPxButton runat="server" Text="Salvar" AutoPostBack="false" Width="100%" OnClick="BtnNovoAutor_Click" />
-                                </dx:LayoutItemNestedControlContainer>
-                            </layoutitemnestedcontrolcollection>
-                        </dx:LayoutItem>
-                    </Items>
+                    <dx:LayoutItem Caption="" ColSpan="2">
+                        <LayoutItemNestedControlCollection>
+                            <dx:LayoutItemNestedControlContainer runat="server">
+                                <dx:ASPxButton runat="server" Text="Salvar" AutoPostBack="false" Width="100%" OnClick="BtnNovoAutor_Click" />
+                            </dx:LayoutItemNestedControlContainer>
+                        </LayoutItemNestedControlCollection>
+                    </dx:LayoutItem>
+                </Items>
             </dx:LayoutGroup>
         </Items>
     </dx:ASPxFormLayout>
+
+     <script>
+         function OnEndCallBack(s, e) {
+             if (s.cpRedirectToLivros) {
+                 window.location.href = '/Livraria/GerenciamentoLivros.aspx'
+             }
+         }
+     </script>
+
+    <dx:ASPxGridView ID="gvGerenciamentoAutores" runat="server" ShowInsert="True" AllowEditing="True" Width="100%" KeyFieldName="aut_id_autor"
+        OnRowUpdating="gvGerenciamentoAutores_RowUpdating"
+        OnRowDeleting="gvGerenciamentoAutores_RowDeleting"
+        OnCustomButtonCallback="gvGerenciamento_CustomButtonCallBack">
+        <ClientSideEvents EndCallback="OnEndCallBack" />
+
+        <Columns>
+            <dx:GridViewDataTextColumn FieldName="aut_id_autor" Caption="Id" Visible="false" />
+            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="aut_nm_nome" Caption="Nome" />
+            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="50" FieldName="aut_nm_sobrenome" Caption="Sobrenome" />
+            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="50" FieldName="aut_ds_email" Caption="Email" />
+
+            <dx:GridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true">
+                <CustomButtons>
+                    <dx:GridViewCommandColumnCustomButton ID="btnLivros" Text="Livros" />
+                    <dx:GridViewCommandColumnCustomButton ID="btnAutorInfo" Text="Informações" />
+                </CustomButtons>
+            </dx:GridViewCommandColumn>
+
+        </Columns>
+        <SettingsEditing Mode="Batch" />
+    </dx:ASPxGridView>
 </asp:Content>

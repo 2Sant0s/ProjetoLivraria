@@ -11,7 +11,7 @@ namespace ProjetoLivraria.DAO
         SqlCommand ioQuery;
         SqlConnection ioConexao;
 
-        public BindingList<Autores> BuscaAutores(decimal? adcIdAutor = null) //tipos de valor nao aceitam null (?) para 
+        public BindingList<Autores> BuscaAutores(decimal? adcIdAutor = null)
         {
             // lista de autores
             BindingList<Autores> loListAutores = new BindingList<Autores>();
@@ -68,7 +68,7 @@ namespace ProjetoLivraria.DAO
                     ioQuery = new SqlCommand("INSERT INTO AUT_AUTORES (AUT_ID_AUTOR, AUT_NM_NOME, AUT_NM_SOBRENOME, AUT_DS_EMAIL) " +
                         "VALUES (@idAutor, @nomeAutor, @sobrenomeAutor, @emailAutor)", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoNovoAutor.aut_id_autor));
-                    ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", aoNovoAutor.aut_nm_autor));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", aoNovoAutor.aut_nm_nome));
                     ioQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", aoNovoAutor.aut_nm_sobrenome));
                     ioQuery.Parameters.Add(new SqlParameter("@emailAutor", aoNovoAutor.aut_ds_email));
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
@@ -81,19 +81,18 @@ namespace ProjetoLivraria.DAO
             return liQtdRegistrosInseridos;
         }
         //MÉTODO EXCLUSÃO
-        public int RemoveAutor(Autores aoNovoAutor)
+        public int RemoveAutor(Autores aoAutor)
         {
-            if (aoNovoAutor == null)
+            if (aoAutor == null)
                 throw new NullReferenceException();
             int liQtdRegistrosInseridos = 0;
-
             using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
                 try
                 {
                     ioConexao.Open();
                     ioQuery = new SqlCommand("DELETE FROM AUT_AUTORES WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
-                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoNovoAutor.aut_id_autor));
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoAutor.aut_id_autor));
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
                 catch (Exception ex)
@@ -104,9 +103,9 @@ namespace ProjetoLivraria.DAO
             return liQtdRegistrosInseridos;
         }
         //MÉTODO ATUALIZACAO
-        public int AtualizaAutor(Autores aoNovoAutor)
+        public int AtualizaAutor(Autores aoAutor)
         {
-            if (aoNovoAutor == null)
+            if (aoAutor == null)
                 throw new NullReferenceException();
             int liQtdRegistrosInseridos = 0;
 
@@ -117,11 +116,11 @@ namespace ProjetoLivraria.DAO
                     ioConexao.Open();
                     ioQuery = new SqlCommand("UPDATE AUT_AUTORES SET AUT_NM_NOME = @nomeAutor, AUT_NM_SOBRENOME = @sobrenomeAutor, " +
                         "AUT_DS_EMAIL = @emailAutor, AUT_DS_RESUMO = @resumoAutor WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
-                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoNovoAutor.aut_id_autor));
-                    ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", aoNovoAutor.aut_nm_autor));
-                    ioQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", aoNovoAutor.aut_nm_sobrenome));
-                    ioQuery.Parameters.Add(new SqlParameter("@emailAutor", aoNovoAutor.aut_ds_email));
-                    ioQuery.Parameters.Add(new SqlParameter("@resumoAutor", aoNovoAutor.aut_ds_resumo));
+                    ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoAutor.aut_id_autor));
+                    ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", aoAutor.aut_nm_nome));
+                    ioQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", aoAutor.aut_nm_sobrenome));
+                    ioQuery.Parameters.Add(new SqlParameter("@emailAutor", aoAutor.aut_ds_email));
+                    ioQuery.Parameters.Add(new SqlParameter("@resumoAutor", aoAutor.aut_ds_resumo));
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
                 catch (Exception ex)
