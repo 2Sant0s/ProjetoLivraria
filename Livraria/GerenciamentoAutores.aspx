@@ -1,8 +1,22 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="GerenciamentoAutores.aspx.cs" Inherits="ProjetoLivraria.Livraria.GerenciamentoAutores" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+     <script>
+         function OnEndCallBack(s, e) {
+             if (s.cpRedirectToLivros) {
+                 window.location.href = '/Livraria/GerenciamentoLivros.aspx'
+             }
+         }
+         function OnSalvarAutorClick(s, e) {
+             if (!ASPxClientEdit.ValidateGroup('MyGroup')) {
+                 e.processOnServer = false;
+             } else {
+                 e.processOnServer = true;
+             }
+         }
+     </script>
 
-    <dx:ASPxFormLayout ID="ASPxFormLayout1" runat="server" Width="50%" Theme="Office365">
+    <dx:ASPxFormLayout ID="ASPxFormLayout1" runat="server" Width="100%" Theme="Office365">
         <Items>
             <dx:LayoutGroup Caption="" ColCount="2" SettingsItemCaptions-Location="Top">
                 <Items>
@@ -12,7 +26,7 @@
                             <dx:LayoutItemNestedControlContainer>
                                 <dx:ASPxTextBox ID="txbCadastroNomeAutor" runat="server" Width="100%">
                                     <ValidationSettings ValidationGroup="MyGroup" ValidateOnLeave="true" Display="Dynamic">
-                                        <RequiredField IsRequired="True" ErrorText="Digite o nome do Autor!" />
+                                        <RequiredField IsRequired="True" ErrorText="Digite o nome do Autor" />
                                     </ValidationSettings>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -26,7 +40,7 @@
                             <dx:LayoutItemNestedControlContainer>
                                 <dx:ASPxTextBox ID="txbCadastroSobrenomeAutor" runat="server" Width="100%">
                                     <ValidationSettings ValidationGroup="MyGroup" ValidateOnLeave="true" Display="Dynamic">
-                                        <RequiredField IsRequired="True" ErrorText="Digite o sobrenome do Autor!" />
+                                        <RequiredField IsRequired="True" ErrorText="Digite o sobrenome do Autor" />
                                     </ValidationSettings>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -49,7 +63,7 @@
                     <dx:LayoutItem Caption="" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton runat="server" Text="Adicionar" AutoPostBack="true" CausesValidation="true"  Width="100%" OnClick="BtnNovoAutor_Click" />
+                                <dx:ASPxButton runat="server" Text="Adicionar" AutoPostBack="true" CausesValidation="true"  Width="100%" OnClick="BtnNovoAutor_Click" ClientSideEvents-Click="OnSalvarAutorClick" />
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -58,13 +72,6 @@
         </Items>
     </dx:ASPxFormLayout>
 
-     <script>
-         function OnEndCallBack(s, e) {
-             if (s.cpRedirectToLivros) {
-                 window.location.href = '/Livraria/GerenciamentoAutores.aspx'
-             }
-         }
-     </script>
 
     <dx:ASPxGridView ID="gvGerenciamentoAutores" runat="server" ShowInsert="True" AllowEditing="True" Width="100%" KeyFieldName="aut_id_autor"
         OnRowUpdating="gvGerenciamentoAutores_RowUpdating"

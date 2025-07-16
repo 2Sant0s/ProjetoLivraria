@@ -75,7 +75,7 @@ namespace ProjetoLivraria.Livraria
             this.txbCadastroSobrenomeAutor.Text = String.Empty;
             this.txbCadastroEmailAutor.Text = String.Empty;
         }
-        //nao funcional
+       
         protected void gvGerenciamentoAutores_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
         {
             try
@@ -85,18 +85,19 @@ namespace ProjetoLivraria.Livraria
                 string sobrenome = e.NewValues["aut_nm_sobrenome"].ToString();
                 string email = e.NewValues["aut_ds_email"].ToString();
 
-                if (string.IsNullOrEmpty(nome))
+                // entender o comportamento dessas condicionais na tela.
+                if (string.IsNullOrWhiteSpace(nome))
                 {
                     HttpContext.Current.Response.Write("<script>alert('Informe o nome do autor')</script>");
                     return;
 
                 }
-                if (string.IsNullOrEmpty(sobrenome))
+                if (string.IsNullOrWhiteSpace(sobrenome))
                 {
                     HttpContext.Current.Response.Write("<script>alert('Informe o sobrenome do autor')</script>");
                     return;
                 }
-                else if (string.IsNullOrEmpty(email))
+                else if (string.IsNullOrWhiteSpace(email))
                 {
                     HttpContext.Current.Response.Write("<script>alert('Informe o email do autor')</script>");
                     return;
@@ -113,7 +114,7 @@ namespace ProjetoLivraria.Livraria
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro na atualização do cadastro do autor."+ex);
+                throw new Exception("Erro na atualização do cadastro do autor.");
             }
         }
 
