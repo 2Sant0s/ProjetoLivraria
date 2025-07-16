@@ -12,7 +12,7 @@
                             <dx:LayoutItemNestedControlContainer>
                                 <dx:ASPxTextBox ID="txbCadastroNomeAutor" runat="server" Width="100%">
                                     <ValidationSettings ValidationGroup="MyGroup" ValidateOnLeave="true" Display="Dynamic">
-                                        <RequiredField IsRequired="true" ErrorText="Digite o nome do Autor!" />
+                                        <RequiredField IsRequired="True" ErrorText="Digite o nome do Autor!" />
                                     </ValidationSettings>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -26,7 +26,7 @@
                             <dx:LayoutItemNestedControlContainer>
                                 <dx:ASPxTextBox ID="txbCadastroSobrenomeAutor" runat="server" Width="100%">
                                     <ValidationSettings ValidationGroup="MyGroup" ValidateOnLeave="true" Display="Dynamic">
-                                        <RequiredField IsRequired="true" ErrorText="Digite o sobrenome do Autor!" />
+                                        <RequiredField IsRequired="True" ErrorText="Digite o sobrenome do Autor!" />
                                     </ValidationSettings>
                                 </dx:ASPxTextBox>
                             </dx:LayoutItemNestedControlContainer>
@@ -38,7 +38,7 @@
                             <dx:LayoutItemNestedControlContainer runat="server">
                                 <dx:ASPxTextBox ID="txbCadastroEmailAutor" runat="server" Width="100%">
                                     <ValidationSettings ValidationGroup="MyGroup" ValidateOnLeave="true" Display="Dynamic">
-                                        <RequiredField IsRequired="true" ErrorText="Digite o email do Autor" />
+                                        <RequiredField IsRequired="True" ErrorText="Digite o email do Autor" />
                                         <RegularExpression ErrorText="Email inválido" ValidationExpression="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" />
                                     </ValidationSettings>
                                 </dx:ASPxTextBox>
@@ -49,7 +49,7 @@
                     <dx:LayoutItem Caption="" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton runat="server" Text="Salvar" AutoPostBack="false" Width="100%" OnClick="BtnNovoAutor_Click" />
+                                <dx:ASPxButton runat="server" Text="Adicionar" AutoPostBack="true" CausesValidation="true"  Width="100%" OnClick="BtnNovoAutor_Click" />
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
@@ -61,7 +61,7 @@
      <script>
          function OnEndCallBack(s, e) {
              if (s.cpRedirectToLivros) {
-                 window.location.href = '/Livraria/GerenciamentoLivros.aspx'
+                 window.location.href = '/Livraria/GerenciamentoAutores.aspx'
              }
          }
      </script>

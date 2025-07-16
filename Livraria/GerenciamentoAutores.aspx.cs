@@ -51,11 +51,15 @@ namespace ProjetoLivraria.Livraria
         }
         protected void BtnNovoAutor_Click(object sender, EventArgs e)
         {
+            if(!Page.IsValid)
+            {
+                return;
+            }
             try
             {
                 decimal IdcIdAutor = this.ListaAutores.OrderByDescending(a => a.aut_id_autor).First().aut_id_autor + 1;
                 string isNomeAutor = this.txbCadastroNomeAutor.Text;
-                string isSobrenomeAutor = this.txbCadastroEmailAutor.Text;
+                string isSobrenomeAutor = this.txbCadastroSobrenomeAutor.Text;
                 string isEmailAutor = this.txbCadastroEmailAutor.Text;
 
                 Autores loAutor = new Autores(IdcIdAutor, isNomeAutor, isSobrenomeAutor, isEmailAutor);

@@ -115,12 +115,11 @@ namespace ProjetoLivraria.DAO
                 {
                     ioConexao.Open();
                     ioQuery = new SqlCommand("UPDATE AUT_AUTORES SET AUT_NM_NOME = @nomeAutor, AUT_NM_SOBRENOME = @sobrenomeAutor, " +
-                        "AUT_DS_EMAIL = @emailAutor, AUT_DS_RESUMO = @resumoAutor WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
+                        "AUT_DS_EMAIL = @emailAutor WHERE AUT_ID_AUTOR = @idAutor", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoAutor.aut_id_autor));
                     ioQuery.Parameters.Add(new SqlParameter("@nomeAutor", aoAutor.aut_nm_nome));
                     ioQuery.Parameters.Add(new SqlParameter("@sobrenomeAutor", aoAutor.aut_nm_sobrenome));
                     ioQuery.Parameters.Add(new SqlParameter("@emailAutor", aoAutor.aut_ds_email));
-                    ioQuery.Parameters.Add(new SqlParameter("@resumoAutor", aoAutor.aut_ds_resumo));
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
                 catch (Exception ex)
