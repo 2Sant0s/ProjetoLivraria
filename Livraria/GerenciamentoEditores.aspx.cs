@@ -70,7 +70,7 @@ namespace ProjetoLivraria.Livraria
                 Editores loEditor = new Editores(ldcEditor, lsNomeEditor, lsEmailEditor, lsUrlEditor);
                 this.ioEditoresDAO.InsereEditor(loEditor);
                 HttpContext.Current.Response.Write("<script> alert('Editor cadastrado com sucesso!'); </script>");
-                Response.Redirect(Request.RawUrl, false);
+                //Response.Redirect(Request.RawUrl, false); ???
             }
             catch (Exception ex)
             {
@@ -116,9 +116,10 @@ namespace ProjetoLivraria.Livraria
                 CarregaDados();
 
             }
-            catch
+            catch (Exception ex)
             {
                 HttpContext.Current.Response.Write("<script>alert('Erro na atualização do Editor.');</script>");
+                throw new Exception(ex.Message);
             }
         }
         protected void gvGerenciamentoEditores_RowDeleting(object sender, ASPxDataDeletingEventArgs e)
@@ -145,9 +146,10 @@ namespace ProjetoLivraria.Livraria
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 HttpContext.Current.Response.Write("<script>alert('Erro na remoção do editor selecionado.')</script>");
+                throw new Exception(ex.Message);
             }
         }
         protected void gvGerenciamentoEditores_CustomButtonCallBack(object sender, ASPxGridViewCustomButtonCallbackEventArgs e)
@@ -181,7 +183,5 @@ namespace ProjetoLivraria.Livraria
             }
 
         }
-
-
     }
 }

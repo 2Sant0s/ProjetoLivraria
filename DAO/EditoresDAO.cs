@@ -23,7 +23,7 @@ namespace ProjetoLivraria.DAO
                     ioConexao.Open();
                     if (adcIdEditor != null)
                     {
-                        ioQuery = new SqlCommand("SELECT FROM EDI_EDITORES WHERE EDI_ID_EDITOR = @idEditor", ioConexao);
+                        ioQuery = new SqlCommand("SELECT * FROM EDI_EDITORES WHERE EDI_ID_EDITOR = @idEditor", ioConexao);
                         ioQuery.Parameters.Add(new SqlParameter("@idEditor", adcIdEditor));
                     }
                     else

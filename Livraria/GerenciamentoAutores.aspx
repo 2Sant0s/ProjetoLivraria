@@ -63,7 +63,7 @@
                     <dx:LayoutItem Caption="" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton runat="server" Text="Adicionar" AutoPostBack="true" CausesValidation="true" Width="100%" OnClick="BtnNovoAutor_Click" ClientSideEvents-Click="OnSalvarAutorClick" />
+                                <dx:ASPxButton runat="server" Text="Salvar" AutoPostBack="true" CausesValidation="true" Width="100%" OnClick="BtnNovoAutor_Click" ClientSideEvents-Click="OnSalvarAutorClick" />
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>

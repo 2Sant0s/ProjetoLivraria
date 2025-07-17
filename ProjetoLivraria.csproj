@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Livraria\GerenciamentoAutores.aspx" />
+    <Content Include="Livraria\GerenciamentoCategorias.aspx" />
     <Content Include="Livraria\GerenciamentoEditores.aspx" />
     <Content Include="Livraria\GerenciamentoLivros.aspx" />
     <Content Include="Site.master" />
@@ -99,6 +100,13 @@
     </Compile>
     <Compile Include="Livraria\GerenciamentoAutores.aspx.designer.cs">
       <DependentUpon>GerenciamentoAutores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Livraria\GerenciamentoCategorias.aspx.cs">
+      <DependentUpon>GerenciamentoCategorias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Livraria\GerenciamentoCategorias.aspx.designer.cs">
+      <DependentUpon>GerenciamentoCategorias.aspx</DependentUpon>
     </Compile>
     <Compile Include="Livraria\GerenciamentoEditores.aspx.cs">
       <DependentUpon>GerenciamentoEditores.aspx</DependentUpon>

@@ -87,7 +87,7 @@ namespace ProjetoLivraria.DAO
                 try
                 {
                     ioConexao.Open();
-                    ioQuery = new SqlCommand("DELETE FROM TIL_TIPO_LIVRO WHERE ID = @idTipoLivro", ioConexao);
+                    ioQuery = new SqlCommand("DELETE FROM TIL_TIPO_LIVRO WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoNovoTipoLivro.til_id_tipo_livro));
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
@@ -110,14 +110,14 @@ namespace ProjetoLivraria.DAO
                 try
                 {
                     ioConexao.Open();
-                    ioQuery = new SqlCommand("UPDATE FROM TIL_TIPO_LIVRO SET TIL_DS_DESCRICAO = @descricaoTipoLivro WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
+                    ioQuery = new SqlCommand("UPDATE TIL_TIPO_LIVRO SET TIL_DS_DESCRICAO = @descricaoTipoLivro WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoNovoTipoLivro.til_id_tipo_livro));
                     ioQuery.Parameters.Add(new SqlParameter("@descricaoTipoLivro", aoNovoTipoLivro.til_ds_descricao));
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Erro ao tentar atualizar tipo de livro.");
+                    throw new Exception("Erro ao tentar atualizar categoria de livro." +ex);
                 }
             }
             return liQtdRegistrosInseridos;

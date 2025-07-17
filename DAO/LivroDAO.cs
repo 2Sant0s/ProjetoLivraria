@@ -146,7 +146,7 @@ namespace ProjetoLivraria.DAO
             BindingList<Livro> loListLivros = new BindingList<Livro>();
 
             if (aoNovoAutor == null)
-                throw new ArgumentNullException();
+                throw new NullReferenceException();
 
             using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
@@ -190,7 +190,7 @@ namespace ProjetoLivraria.DAO
             BindingList<Livro> loListLivros = new BindingList<Livro>();
 
             if (aoNovoEditor == null)
-                throw new ArgumentNullException();
+                throw new NullReferenceException();
 
             using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
             {
@@ -200,6 +200,49 @@ namespace ProjetoLivraria.DAO
 
                     ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS LIV WHERE LIV.LIV_ID_EDITOR = @idEditor", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoNovoEditor.edi_id_editor));
+
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        while (loReader.Read())
+                        {
+                            Livro loLivro = new Livro(
+                                loReader.GetDecimal(0),
+                                loReader.GetDecimal(1),
+                                loReader.GetDecimal(2),
+                                loReader.GetString(3),
+                                loReader.GetDecimal(4),
+                                loReader.GetDecimal(5),
+                                loReader.GetString(6),
+                                loReader.GetInt32(7)
+                            );
+                            loListLivros.Add(loLivro);
+                        }
+                        loReader.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro ao tentar buscar livros pelo autor.");
+                }
+            }
+            return loListLivros;
+        }
+        public BindingList<Livro> FindLivrosByCategoria(TipoLivro aoNovoTipoLivro)
+        {
+            BindingList<Livro> loListLivros = new BindingList<Livro>();
+
+            if (aoNovoTipoLivro == null)
+                throw new NullReferenceException();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS LIV JOIN TIL_TIPO_LIVRO TIL on " +
+                        "LIV.LIV_ID_TIPO_LIVRO = TIL.TIL_ID_TIPO_LIVRO WHERE TIL_ID_TIPO_LIVRO = @idTipoLivro;", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoNovoTipoLivro.til_id_tipo_livro));
 
                     using (SqlDataReader loReader = ioQuery.ExecuteReader())
                     {
