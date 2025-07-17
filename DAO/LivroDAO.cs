@@ -154,7 +154,8 @@ namespace ProjetoLivraria.DAO
                 {
                     ioConexao.Open();
 
-                    ioQuery = new SqlCommand("COMANDO ...", ioConexao);
+                    ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS LIV JOIN LIA_LIVRO_AUTOR AUT ON LIV.LIV_ID_LIVRO = AUT.LIA_ID_LIVRO " +
+                        "WHERE LIA_ID_AUTOR = @idAutor", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idAutor", aoNovoAutor.aut_id_autor));
 
                     using (SqlDataReader loReader = ioQuery.ExecuteReader())
@@ -165,11 +166,11 @@ namespace ProjetoLivraria.DAO
                                 loReader.GetDecimal(0),
                                 loReader.GetDecimal(1),
                                 loReader.GetDecimal(2),
-                                loReader.GetString(3), 
+                                loReader.GetString(3),
                                 loReader.GetDecimal(4),
                                 loReader.GetDecimal(5),
-                                loReader.GetString(6), 
-                                loReader.GetInt32(7) 
+                                loReader.GetString(6),
+                                loReader.GetInt32(7)
                             );
                             loListLivros.Add(loLivro);
                         }
@@ -183,6 +184,48 @@ namespace ProjetoLivraria.DAO
             }
             return loListLivros;
         }
+        //teste com editores
+        public BindingList<Livro> FindLivrosByEditor(Editores aoNovoEditor)
+        {
+            BindingList<Livro> loListLivros = new BindingList<Livro>();
 
+            if (aoNovoEditor == null)
+                throw new ArgumentNullException();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS LIV WHERE LIV.LIV_ID_EDITOR = @idEditor", ioConexao);
+                    ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoNovoEditor.edi_id_editor));
+
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        while (loReader.Read())
+                        {
+                            Livro loLivro = new Livro(
+                                loReader.GetDecimal(0),
+                                loReader.GetDecimal(1),
+                                loReader.GetDecimal(2),
+                                loReader.GetString(3),
+                                loReader.GetDecimal(4),
+                                loReader.GetDecimal(5),
+                                loReader.GetString(6),
+                                loReader.GetInt32(7)
+                            );
+                            loListLivros.Add(loLivro);
+                        }
+                        loReader.Close();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Erro ao tentar buscar livros pelo autor.");
+                }
+            }
+            return loListLivros;
+        }
     }
 }

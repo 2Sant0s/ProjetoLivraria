@@ -62,7 +62,7 @@ namespace ProjetoLivraria.DAO
                 {
                     ioConexao.Open();
                     ioQuery = new SqlCommand("INSERT INTO EDI_EDITORES (EDI_ID_EDITOR, EDI_NM_EDITOR, EDI_DS_EMAIL, EDI_DS_URL) " +
-                        "VALUES (@idEditor, @nomeEditor, @emailEditor, urlEditor)", ioConexao);
+                        "VALUES (@idEditor, @nomeEditor, @emailEditor, @urlEditor)", ioConexao);
                     ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoNovoEditor.edi_id_editor));
                     ioQuery.Parameters.Add(new SqlParameter("@nomeEditor", aoNovoEditor.edi_nm_editor));
                     ioQuery.Parameters.Add(new SqlParameter("@emailEditor", aoNovoEditor.edi_ds_email));
@@ -71,7 +71,7 @@ namespace ProjetoLivraria.DAO
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Erro ao tentar inserir editor.");
+                    throw new Exception("Erro ao tentar inserir editor." +ex);
                 }
             }
             return liQtdRegistrosInseridos;
