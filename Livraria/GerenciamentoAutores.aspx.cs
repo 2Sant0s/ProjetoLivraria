@@ -30,6 +30,14 @@ namespace ProjetoLivraria.Livraria
                 ViewState["ViewStateListaAutores"] = value;
             }
         }
+
+        public Autores AutoresSession
+        {
+            get { return (Autores)Session["SessionAutorSelecionado"]; }
+            set { Session["SessionAutorSelecionado"] = value; }
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             CarregaDados();
@@ -51,7 +59,7 @@ namespace ProjetoLivraria.Livraria
         }
         protected void BtnNovoAutor_Click(object sender, EventArgs e)
         {
-            if(!Page.IsValid)
+            if (!Page.IsValid)
             {
                 return;
             }
@@ -75,7 +83,7 @@ namespace ProjetoLivraria.Livraria
             this.txbCadastroSobrenomeAutor.Text = String.Empty;
             this.txbCadastroEmailAutor.Text = String.Empty;
         }
-       
+
         protected void gvGerenciamentoAutores_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
         {
             try
@@ -85,21 +93,25 @@ namespace ProjetoLivraria.Livraria
                 string sobrenome = e.NewValues["aut_nm_sobrenome"].ToString();
                 string email = e.NewValues["aut_ds_email"].ToString();
 
+
                 // entender o comportamento dessas condicionais na tela.
-                if (string.IsNullOrWhiteSpace(nome))
+                if (string.IsNullOrEmpty(nome))
                 {
                     HttpContext.Current.Response.Write("<script>alert('Informe o nome do autor')</script>");
+                    e.Cancel = true;
                     return;
 
                 }
-                if (string.IsNullOrWhiteSpace(sobrenome))
+                if (string.IsNullOrEmpty(sobrenome))
                 {
                     HttpContext.Current.Response.Write("<script>alert('Informe o sobrenome do autor')</script>");
+                    e.Cancel = true;
                     return;
                 }
-                else if (string.IsNullOrWhiteSpace(email))
+                else if (string.IsNullOrEmpty(email))
                 {
                     HttpContext.Current.Response.Write("<script>alert('Informe o email do autor')</script>");
+                    e.Cancel = true;
                     return;
                 }
 
@@ -114,7 +126,7 @@ namespace ProjetoLivraria.Livraria
             }
             catch (Exception ex)
             {
-                throw new Exception("Erro na atualização do cadastro do autor.");
+                throw new Exception("Erro na atualização do cadastro do autor." + ex);
             }
         }
 
@@ -131,7 +143,33 @@ namespace ProjetoLivraria.Livraria
         }
         protected void gvGerenciamento_CustomButtonCallBack(object sender, ASPxGridViewCustomButtonCallbackEventArgs e)
         {
-            // ...
+            decimal autorId = Convert.ToDecimal(gvGerenciamentoAutores.GetRowValues(e.VisibleIndex, "aut_id_autor"));
+            var autor = ioAutoresDAO.BuscaAutores(autorId).FirstOrDefault();
+
+            if (e.ButtonID == "btnAutorInfo")
+            {
+
+            }
+            else if (e.ButtonID == "btnLivros")
+            {
+                Session["SessionAutorSelecionado"] = autor;
+
+                gvGerenciamentoAutores.JSProperties["cpRedirectToLivros"] = true;
+            }
+        }
+        //redireciona para a página livros (entender esse método)
+        private void RedirectLivros(string idAutorString, string controlID)
+        {
+            switch (controlID)
+            {
+                case "btnLivros":
+                    decimal id = Convert.ToDecimal(idAutorString);
+                    AutoresSession = this.ioAutoresDAO.BuscaAutores(id).FirstOrDefault();
+                    Response.Redirect("/Livraria/GerenciamentoLivros.aspx");
+                    break;
+
+                default: break;
+            }
         }
     }
 }

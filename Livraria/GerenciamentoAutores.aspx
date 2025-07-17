@@ -1,20 +1,20 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeBehind="GerenciamentoAutores.aspx.cs" Inherits="ProjetoLivraria.Livraria.GerenciamentoAutores" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-     <script>
-         function OnEndCallBack(s, e) {
-             if (s.cpRedirectToLivros) {
-                 window.location.href = '/Livraria/GerenciamentoLivros.aspx'
-             }
-         }
-         function OnSalvarAutorClick(s, e) {
-             if (!ASPxClientEdit.ValidateGroup('MyGroup')) {
-                 e.processOnServer = false;
-             } else {
-                 e.processOnServer = true;
-             }
-         }
-     </script>
+    <script>
+        function OnEndCallBack(s, e) {
+            if (s.cpRedirectToLivros) {
+                window.location.href = '/Livraria/GerenciamentoLivros.aspx'
+            }
+        }
+        function OnSalvarAutorClick(s, e) {
+            if (!ASPxClientEdit.ValidateGroup('MyGroup')) {
+                e.processOnServer = false;
+            } else {
+                e.processOnServer = true;
+            }
+        }
+    </script>
 
     <dx:ASPxFormLayout ID="ASPxFormLayout1" runat="server" Width="100%" Theme="Office365">
         <Items>
@@ -63,7 +63,7 @@
                     <dx:LayoutItem Caption="" ColSpan="2">
                         <LayoutItemNestedControlCollection>
                             <dx:LayoutItemNestedControlContainer runat="server">
-                                <dx:ASPxButton runat="server" Text="Adicionar" AutoPostBack="true" CausesValidation="true"  Width="100%" OnClick="BtnNovoAutor_Click" ClientSideEvents-Click="OnSalvarAutorClick" />
+                                <dx:ASPxButton runat="server" Text="Adicionar" AutoPostBack="true" CausesValidation="true" Width="100%" OnClick="BtnNovoAutor_Click" ClientSideEvents-Click="OnSalvarAutorClick" />
                             </dx:LayoutItemNestedControlContainer>
                         </LayoutItemNestedControlCollection>
                     </dx:LayoutItem>
