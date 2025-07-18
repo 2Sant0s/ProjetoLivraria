@@ -15,8 +15,8 @@ namespace ProjetoLivraria.Livraria
     {
         LivroDAO ioLivrosDAO = new LivroDAO();
         EditoresDAO ioEditoraDAO = new EditoresDAO();
-        TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO(); // 1º crie uma instancia da classeDAO
-        AutoresDAO ioAutoresDAO = new AutoresDAO(); 
+        TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO(); 
+        AutoresDAO ioAutoresDAO = new AutoresDAO();
         public BindingList<Livro> ListaLivros
         {
             get
@@ -45,7 +45,7 @@ namespace ProjetoLivraria.Livraria
                 ViewState["ViewStateListaEditoras"] = value;
             }
         }
-        public BindingList<Autores> ListaAutores 
+        public BindingList<Autores> ListaAutores
         {
             get
             {
@@ -60,7 +60,7 @@ namespace ProjetoLivraria.Livraria
                 ViewState["ViewStateListaAutores"] = value;
             }
         }
-        public BindingList<TipoLivro> ListaTipoLivros // 2º crie uma lista 
+        public BindingList<TipoLivro> ListaTipoLivros 
         {
             get
             {
@@ -74,7 +74,7 @@ namespace ProjetoLivraria.Livraria
             {
                 ViewState["ViewStateListaTipoLivro"] = value;
             }
-        } 
+        }
         public TipoLivro TipoLivroSession
         {
             get { return (TipoLivro)Session["SessionTipoLivroSelecionado"]; }
@@ -90,7 +90,9 @@ namespace ProjetoLivraria.Livraria
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            CarregaDados();
+
+            if (!IsPostBack)
+                CarregaDados();
         }
         private void CarregaDados()
         {
@@ -100,19 +102,18 @@ namespace ProjetoLivraria.Livraria
                 this.gvGerenciamentoLivros.DataSource = this.ListaLivros.OrderBy(loLivro => loLivro.liv_nm_titulo);
                 this.gvGerenciamentoLivros.DataBind();
 
-                //3º atribua os valores ao comboBox 
                 this.ListaTipoLivros = this.ioTipoLivroDAO.BuscaTipoLivro();
                 this.cbCadastroTipoLivro.DataSource = this.ListaTipoLivros.OrderBy(loTipoLivro => loTipoLivro.til_ds_descricao);
                 this.cbCadastroTipoLivro.TextField = "til_ds_descricao";
                 this.cbCadastroTipoLivro.DataBind();
-                
                 this.cbCadastroTipoLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
+
                 this.ListaAutores = this.ioAutoresDAO.BuscaAutores();
                 this.cbCadastroAutorLivro.DataSource = this.ListaAutores.OrderBy(loAutor => loAutor.aut_nm_nome);
                 this.cbCadastroAutorLivro.TextField = "aut_nm_nome";
                 this.cbCadastroAutorLivro.DataBind();
                 this.cbCadastroAutorLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
-            
+
                 this.ListaEditoras = this.ioEditoraDAO.BuscaEditores();
                 this.cbCadastroEditoraLivro.DataSource = this.ListaEditoras.OrderBy(loEditor => loEditor.edi_nm_editor);
                 this.cbCadastroEditoraLivro.TextField = "edi_nm_editor";
@@ -145,6 +146,7 @@ namespace ProjetoLivraria.Livraria
                 string isResumoLivro = this.txbCadastroResumoLivro.Text;
                 int isEdicaoLivro = Convert.ToInt32(this.seCadastroEdicaoLivro.Text);
 
+
                 Livro loLivro = new Livro(IdcIdLivro, isTipoLivro, isEditoraLivro, isTNomeTituloLivro, isPrecoLivro, isRoyaltyLivro, isResumoLivro, isEdicaoLivro);
                 this.ioLivrosDAO.InsereLivro(loLivro);
                 this.CarregaDados();
@@ -153,7 +155,7 @@ namespace ProjetoLivraria.Livraria
             catch (Exception ex)
             {
                 HttpContext.Current.Response.Write("<script>alert('Erro no cadastro do Livro')</script>");
-                throw new Exception(ex.Message); 
+                throw new Exception(ex.Message);
             }
 
             this.cbCadastroTipoLivro.SelectedIndex = -1;
@@ -172,11 +174,11 @@ namespace ProjetoLivraria.Livraria
                 decimal LivroId = Convert.ToDecimal(e.Keys["liv_id_livro"]);
                 decimal TipoLivro = Convert.ToDecimal(e.NewValues["liv_tipo_livro"]);
                 decimal EditoraLivro = Convert.ToDecimal(e.NewValues["liv_editora_livro"]);
-                string TituloLivro = Convert.ToString(e.NewValues["liv_titulo_livro"]);
+                string TituloLivro = Convert.ToString(e.NewValues["liv_nm_titulo"].ToString()); // possível erro
                 decimal AutorLivro = Convert.ToDecimal(e.NewValues["liv_autor_livro"]);
                 decimal PrecoLivro = Convert.ToDecimal(e.NewValues["liv_preco_livro"]);
                 decimal RoyaltyLivro = Convert.ToDecimal(e.NewValues["liv_royalty_livro"]);
-                string ResumoLivro = Convert.ToString(e.NewValues["liv_resumo_livro"]);
+                string ResumoLivro = Convert.ToString(e.NewValues["liv_ds_resumo"].ToString());
                 int EdicaoLivro = Convert.ToInt32(e.NewValues["liv_edicao_livro"]);
 
 
@@ -253,7 +255,7 @@ namespace ProjetoLivraria.Livraria
         }
         protected void gvGerenciamentoLivros_RowDeleting(object sender, ASPxDataDeletingEventArgs e)
         {
-            decimal LivroId = Convert.ToDecimal(e.Keys["aut_id_autor"]);
+            decimal LivroId = Convert.ToDecimal(e.Keys["liv_id_livro"]);
             Livro livro = this.ListaLivros.FirstOrDefault(a => a.liv_id_livro == LivroId);
             int qtdRegistrosExcluidos = ioLivrosDAO.RemoveLivro(livro);
             CarregaDados();
