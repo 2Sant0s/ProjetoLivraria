@@ -68,6 +68,6 @@
 
        <%-- <SettingsEditing Mode="Batch" /> INVESTIGAR O PORQUÊ NÃO FUNCIONA COM ESSE MODO. --%> 
 
-        <SettingsEditing Mode="inline" />
+        <SettingsEditing Mode="EditForm" />
     </dx:ASPxGridView>
 </asp:Content>

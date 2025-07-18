@@ -112,7 +112,7 @@
                 </CustomButtons>
             </dx:GridViewCommandColumn>
         </Columns>
-        <SettingsEditing Mode="Batch" />
+        <SettingsEditing Mode="Inline" />
     </dx:ASPxGridView>
 
 </asp:Content>

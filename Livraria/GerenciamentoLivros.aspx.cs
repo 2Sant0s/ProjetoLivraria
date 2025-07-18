@@ -15,8 +15,8 @@ namespace ProjetoLivraria.Livraria
     {
         LivroDAO ioLivrosDAO = new LivroDAO();
         EditoresDAO ioEditoraDAO = new EditoresDAO();
-        TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO(); 
-        AutoresDAO ioAutoresDAO = new AutoresDAO(); // 1º crie uma instancia da classeDAO
+        TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO(); // 1º crie uma instancia da classeDAO
+        AutoresDAO ioAutoresDAO = new AutoresDAO(); 
         public BindingList<Livro> ListaLivros
         {
             get
@@ -45,7 +45,7 @@ namespace ProjetoLivraria.Livraria
                 ViewState["ViewStateListaEditoras"] = value;
             }
         }
-        public BindingList<Autores> ListaAutores // 2º crie uma lista 
+        public BindingList<Autores> ListaAutores 
         {
             get
             {
@@ -60,7 +60,7 @@ namespace ProjetoLivraria.Livraria
                 ViewState["ViewStateListaAutores"] = value;
             }
         }
-        public BindingList<TipoLivro> ListaTipoLivros
+        public BindingList<TipoLivro> ListaTipoLivros // 2º crie uma lista 
         {
             get
             {
@@ -74,7 +74,7 @@ namespace ProjetoLivraria.Livraria
             {
                 ViewState["ViewStateListaTipoLivro"] = value;
             }
-        }
+        } 
         public TipoLivro TipoLivroSession
         {
             get { return (TipoLivro)Session["SessionTipoLivroSelecionado"]; }
@@ -100,23 +100,26 @@ namespace ProjetoLivraria.Livraria
                 this.gvGerenciamentoLivros.DataSource = this.ListaLivros.OrderBy(loLivro => loLivro.liv_nm_titulo);
                 this.gvGerenciamentoLivros.DataBind();
 
+                //3º atribua os valores ao comboBox 
+                this.ListaTipoLivros = this.ioTipoLivroDAO.BuscaTipoLivro();
+                this.cbCadastroTipoLivro.DataSource = this.ListaTipoLivros.OrderBy(loTipoLivro => loTipoLivro.til_ds_descricao);
+                this.cbCadastroTipoLivro.TextField = "til_ds_descricao";
+                this.cbCadastroTipoLivro.DataBind();
+                
+                this.cbCadastroTipoLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
+                this.ListaAutores = this.ioAutoresDAO.BuscaAutores();
+                this.cbCadastroAutorLivro.DataSource = this.ListaAutores.OrderBy(loAutor => loAutor.aut_nm_nome);
+                this.cbCadastroAutorLivro.TextField = "aut_nm_nome";
+                this.cbCadastroAutorLivro.DataBind();
+                this.cbCadastroAutorLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
+            
                 this.ListaEditoras = this.ioEditoraDAO.BuscaEditores();
                 this.cbCadastroEditoraLivro.DataSource = this.ListaEditoras.OrderBy(loEditor => loEditor.edi_nm_editor);
                 this.cbCadastroEditoraLivro.TextField = "edi_nm_editor";
                 this.cbCadastroEditoraLivro.DataBind();
                 this.cbCadastroEditoraLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
 
-                this.ListaTipoLivros = this.ioTipoLivroDAO.BuscaTipoLivro();
-                this.cbCadastroTipoLivro.DataSource = this.ListaTipoLivros.OrderBy(loTipoLivro => loTipoLivro.til_ds_descricao);
-                this.cbCadastroTipoLivro.TextField = "til_ds_descricao";
-                this.cbCadastroTipoLivro.DataBind();
-                this.cbCadastroTipoLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
 
-                this.ListaAutores = this.ioAutoresDAO.BuscaAutores();
-                this.cbCadastroAutorLivro.DataSource = this.ListaAutores.OrderBy(loAutor => loAutor.aut_nm_nome);
-                this.cbCadastroAutorLivro.TextField = "aut_nm_nome";
-                this.cbCadastroAutorLivro.DataBind();
-                this.cbCadastroAutorLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
             }
             catch (Exception ex)
             {
@@ -150,7 +153,7 @@ namespace ProjetoLivraria.Livraria
             catch (Exception ex)
             {
                 HttpContext.Current.Response.Write("<script>alert('Erro no cadastro do Livro')</script>");
-                throw new Exception(ex.Message);
+                throw new Exception(ex.Message); 
             }
 
             this.cbCadastroTipoLivro.SelectedIndex = -1;
@@ -234,7 +237,6 @@ namespace ProjetoLivraria.Livraria
                     return;
                 }
 
-
                 Livro livro = new Livro(LivroId, TipoLivro, EditoraLivro, TituloLivro, PrecoLivro, RoyaltyLivro, ResumoLivro, EdicaoLivro) { };
                 int qtdLinhasAfetadas = ioLivrosDAO.AtualizaLivro(livro);
 
@@ -275,19 +277,19 @@ namespace ProjetoLivraria.Livraria
                 gvGerenciamentoLivros.JSProperties["cpRedirectToLivros"] = true;
             }
         }
-        // esse método é necessário? ***
-        //protected void RedirectLivros(string idAutorString, string controlID)
-        //{
-        //    switch (controlID)
-        //    {
-        //        case "btnLivros":
-        //            decimal id = Convert.ToDecimal(idAutorString);
-        //            AutoresSession = this.ioAutoresDAO.BuscaAutores(id).FirstOrDefault();
-        //            Response.Redirect("/Livraria/GerenciamentoLivros.aspx");
-        //            break;
+        // esse método é necessário? aqui ***
+        protected void RedirectLivros(string idAutorString, string controlID)
+        {
+            switch (controlID)
+            {
+                case "btnLivros":
+                    decimal id = Convert.ToDecimal(idAutorString);
+                    AutoresSession = this.ioAutoresDAO.BuscaAutores(id).FirstOrDefault();
+                    Response.Redirect("/Livraria/GerenciamentoLivros.aspx");
+                    break;
 
-        //        default: break;
-        //    }
-        //}
+                default: break;
+            }
+        }
     }
 }
