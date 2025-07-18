@@ -141,13 +141,14 @@
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="100" FieldName="liv_ds_resumo" Caption="Resumo" />
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="liv_id_editor" Caption="Editora" />
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="liv_id_tipo_livro" Caption="Tipo de Livro" />
+            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="aut_nm_nome" Caption="Autor" />
 
             <dx:GridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true">
                 <CustomButtons>
                 </CustomButtons>
             </dx:GridViewCommandColumn>
         </Columns>
-        <SettingsEditing Mode="batch" />
+        <SettingsEditing Mode="Batch" />
     </dx:ASPxGridView>
 
 </asp:Content>

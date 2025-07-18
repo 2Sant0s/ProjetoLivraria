@@ -158,7 +158,7 @@ namespace ProjetoLivraria.Livraria
             }
         }
         //redireciona para a página livros (entender esse método)
-        private void RedirectLivros(string idAutorString, string controlID)
+        protected void RedirectLivros(string idAutorString, string controlID)
         {
             switch (controlID)
             {

@@ -14,17 +14,33 @@ namespace ProjetoLivraria.Models
         public string liv_ds_resumo { get; set; }
         public int liv_nu_edicao { get; set; }
 
-        public Livro(decimal adcIdLivro, decimal adcIdTipoLivro, decimal adcIdEditor,
-          string asNomeTitulo, decimal asPrecoLivro, decimal asRoyaltyLivro, string asResumoLivro, int asEdicaoLivro)
+        public string aut_nm_nome { get; set; } // Novo campo adicionado
+
+        // Construtor original (sem nome do autor)
+        public Livro(decimal idLivro, decimal idTipoLivro, decimal idEditor, string titulo, decimal preco, decimal royalty, string resumo, int edicao)
         {
-            this.liv_id_livro = adcIdLivro;
-            this.liv_id_tipo_livro = adcIdTipoLivro;
-            this.liv_id_editor = adcIdEditor;
-            this.liv_nm_titulo = asNomeTitulo;
-            this.liv_vl_preco = asPrecoLivro;
-            this.liv_pc_royalty = asRoyaltyLivro;
-            this.liv_ds_resumo = asResumoLivro;
-            this.liv_nu_edicao = asEdicaoLivro;
+            this.liv_id_livro = idLivro;
+            this.liv_id_tipo_livro = idTipoLivro;
+            this.liv_id_editor = idEditor;
+            this.liv_nm_titulo = titulo;
+            this.liv_vl_preco = preco;
+            this.liv_pc_royalty = royalty;
+            this.liv_ds_resumo = resumo;
+            this.liv_nu_edicao = edicao;
+        }
+
+        // Construtor com nome do autor
+        public Livro(decimal idLivro, decimal idTipoLivro, decimal idEditor, string titulo, decimal preco, decimal royalty, string resumo, int edicao, string nomeAutor)
+        {
+            this.liv_id_livro = idLivro;
+            this.liv_id_tipo_livro = idTipoLivro;
+            this.liv_id_editor = idEditor;
+            this.liv_nm_titulo = titulo;
+            this.liv_vl_preco = preco;
+            this.liv_pc_royalty = royalty;
+            this.liv_ds_resumo = resumo;
+            this.liv_nu_edicao = edicao;
+            this.aut_nm_nome = nomeAutor;
         }
     }
 }

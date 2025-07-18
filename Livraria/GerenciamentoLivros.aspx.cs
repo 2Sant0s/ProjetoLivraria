@@ -15,7 +15,7 @@ namespace ProjetoLivraria.Livraria
     {
         LivroDAO ioLivrosDAO = new LivroDAO();
         EditoresDAO ioEditoraDAO = new EditoresDAO();
-        TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO(); 
+        TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO();
         AutoresDAO ioAutoresDAO = new AutoresDAO();
         public BindingList<Livro> ListaLivros
         {
@@ -60,7 +60,7 @@ namespace ProjetoLivraria.Livraria
                 ViewState["ViewStateListaAutores"] = value;
             }
         }
-        public BindingList<TipoLivro> ListaTipoLivros 
+        public BindingList<TipoLivro> ListaTipoLivros
         {
             get
             {

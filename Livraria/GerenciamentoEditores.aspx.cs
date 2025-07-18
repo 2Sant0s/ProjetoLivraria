@@ -168,8 +168,7 @@ namespace ProjetoLivraria.Livraria
                 gvGerenciamentoEditores.JSProperties["cpRedirectToLivros"] = true;
             }
         }
-
-        private void RedirectLivros(String idAutorString, string controlID)
+        protected void RedirectLivros(String idAutorString, string controlID)
         {
             switch (controlID)
             {

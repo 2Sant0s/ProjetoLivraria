@@ -157,7 +157,7 @@ namespace ProjetoLivraria.Livraria
             }
         }
 
-        private void RedirectLivros(String idTipoLivroString, string controlID)
+        protected void RedirectLivros(String idTipoLivroString, string controlID)
         {
             switch (controlID)
             {
