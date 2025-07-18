@@ -12,7 +12,7 @@ namespace ProjetoLivraria.DAO
         SqlConnection ioConexao;
         SqlCommand ioQuery;
 
-        public BindingList<Livro> buscaLivro(decimal? adcIdLivro = null)
+        public BindingList<Livro> BuscaLivro(decimal? adcIdLivro = null)
         {
             BindingList<Livro> loListAutores = new BindingList<Livro>();
 
@@ -83,7 +83,7 @@ namespace ProjetoLivraria.DAO
             return liQtdRegistrosInseridos;
         }
         // MÉTODO REMOÇÃO
-        public int removeLivro(Livro aoNovoLivro)
+        public int RemoveLivro(Livro aoNovoLivro)
         {
             if (aoNovoLivro == null)
                 throw new NullReferenceException();
@@ -106,7 +106,7 @@ namespace ProjetoLivraria.DAO
             return liQtdRegistrosInseridos;
         }
         // MÉTODO ATUALIZAÇÃO
-        public int atualizaLivro(Livro aoNovoLivro)
+        public int AtualizaLivro(Livro aoNovoLivro)
         {
             if (aoNovoLivro == null)
                 throw new NullReferenceException();

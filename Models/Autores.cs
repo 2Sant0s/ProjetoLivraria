@@ -2,7 +2,7 @@
 
 namespace ProjetoLivraria.Models
 {
-    [Serializable] // questão do Session/ViewState (transf. de dados) *pesquisar*
+    [Serializable] 
     public class Autores
     {
         public decimal aut_id_autor { get; set; }

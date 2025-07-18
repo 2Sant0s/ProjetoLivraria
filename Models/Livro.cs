@@ -1,5 +1,8 @@
-﻿namespace ProjetoLivraria.Models
+﻿using System;
+
+namespace ProjetoLivraria.Models
 {
+    [Serializable]
     public class Livro
     {
         public decimal liv_id_livro { get; set; }
