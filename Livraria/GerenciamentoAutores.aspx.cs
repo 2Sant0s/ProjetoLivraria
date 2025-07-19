@@ -129,7 +129,7 @@ namespace ProjetoLivraria.Livraria
                 throw new Exception("Erro na atualização do cadastro do autor." + ex);
             }
         }
-
+        
         //funcional
         protected void gvGerenciamentoAutores_RowDeleting(object sender, ASPxDataDeletingEventArgs e)
         {
