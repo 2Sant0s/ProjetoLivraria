@@ -2,7 +2,7 @@
 
 namespace ProjetoLivraria.Models
 {
-    [Serializable] 
+    [Serializable]
     public class Autores
     {
         public decimal aut_id_autor { get; set; }
@@ -17,10 +17,6 @@ namespace ProjetoLivraria.Models
             this.aut_nm_nome = asNomeAutor;
             this.aut_nm_sobrenome = asSobrenomeAutor;
             this.aut_ds_email = asEmailAutor;
-        }
-
-        public Autores()
-        {
         }
     }
 }

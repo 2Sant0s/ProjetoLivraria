@@ -90,6 +90,7 @@
     <Compile Include="DAO\EditoresDAO.cs" />
     <Compile Include="DAO\LivroAutorDAO.cs" />
     <Compile Include="DAO\LivroDAO.cs" />
+    <Compile Include="DAO\LivrosEAutoresDAO.cs" />
     <Compile Include="DAO\TipoLivroDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -122,6 +123,7 @@
     <Compile Include="Livraria\GerenciamentoLivros.aspx.designer.cs">
       <DependentUpon>GerenciamentoLivros.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LivrosEAutores.cs" />
     <Compile Include="Models\Autores.cs" />
     <Compile Include="Models\Editores.cs" />
     <Compile Include="Models\LivroAutor.cs" />

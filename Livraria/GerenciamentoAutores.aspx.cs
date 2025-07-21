@@ -97,21 +97,18 @@ namespace ProjetoLivraria.Livraria
                 // entender o comportamento dessas condicionais na tela.
                 if (string.IsNullOrEmpty(nome))
                 {
-                    HttpContext.Current.Response.Write("<script>alert('Informe o nome do autor')</script>");
-                    e.Cancel = true;
+                    HttpContext.Current.Response.Write("<script>alert('Informe o nome do autor'); </script>");
                     return;
 
                 }
-                if (string.IsNullOrEmpty(sobrenome))
+                else if (string.IsNullOrEmpty(sobrenome))
                 {
-                    HttpContext.Current.Response.Write("<script>alert('Informe o sobrenome do autor')</script>");
-                    e.Cancel = true;
+                    HttpContext.Current.Response.Write("<script>alert('Informe o sobrenome do autor'); </script>");
                     return;
                 }
                 else if (string.IsNullOrEmpty(email))
                 {
-                    HttpContext.Current.Response.Write("<script>alert('Informe o email do autor')</script>");
-                    e.Cancel = true;
+                    HttpContext.Current.Response.Write("<script>alert('Informe o email do autor'); </script>");
                     return;
                 }
 
@@ -120,12 +117,12 @@ namespace ProjetoLivraria.Livraria
 
                 e.Cancel = true;
                 this.gvGerenciamentoAutores.CancelEdit();
-
                 CarregaDados();
 
             }
             catch (Exception ex)
             {
+                e.Cancel = true;
                 throw new Exception("Erro na atualização do cadastro do autor." + ex);
             }
         }

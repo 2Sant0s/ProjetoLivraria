@@ -98,7 +98,7 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
-        // MÉTODO ATUALIZAÇÃO
+        // MÉTODO ATUALIZAÇÃO (LETRA MAISCULA NO METODO)
         public int atualizaTipoLivro(TipoLivro aoNovoTipoLivro)
         {
             if (aoNovoTipoLivro == null)

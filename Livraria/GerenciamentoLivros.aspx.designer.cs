@@ -24,13 +24,13 @@ namespace ProjetoLivraria.Livraria
         protected global::DevExpress.Web.ASPxFormLayout ASPxFormLayout1;
 
         /// <summary>
-        /// txbCadastroTituloLivro control.
+        /// tbxCadastroTituloLivro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txbCadastroTituloLivro;
+        protected global::DevExpress.Web.ASPxTextBox tbxCadastroTituloLivro;
 
         /// <summary>
         /// cbCadastroAutorLivro control.
@@ -42,22 +42,22 @@ namespace ProjetoLivraria.Livraria
         protected global::DevExpress.Web.ASPxComboBox cbCadastroAutorLivro;
 
         /// <summary>
-        /// cbCadastroEditoraLivro control.
+        /// cbCadastroCategoria control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cbCadastroEditoraLivro;
+        protected global::DevExpress.Web.ASPxComboBox cbCadastroCategoria;
 
         /// <summary>
-        /// cbCadastroTipoLivro control.
+        /// cbCadastroEditorLivro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cbCadastroTipoLivro;
+        protected global::DevExpress.Web.ASPxComboBox cbCadastroEditorLivro;
 
         /// <summary>
         /// seCasdastroPrecoLivro control.
@@ -87,13 +87,13 @@ namespace ProjetoLivraria.Livraria
         protected global::DevExpress.Web.ASPxSpinEdit seCadastroEdicaoLivro;
 
         /// <summary>
-        /// txbCadastroResumoLivro control.
+        /// tbxCadastroResumoLivro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxMemo txbCadastroResumoLivro;
+        protected global::DevExpress.Web.ASPxMemo tbxCadastroResumoLivro;
 
         /// <summary>
         /// gvGerenciamentoLivros control.
