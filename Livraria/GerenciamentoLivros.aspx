@@ -151,12 +151,13 @@
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="liv_id_editor" Caption="Editor" />
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="liv_id_tipo_livro" Caption="Categoria" />
             <dx:GridViewDataTextColumn FieldName="liv_pc_royalty" Caption="Royalty (%)" />
-            <dx:GridViewDataTextColumn FieldName="aut_nm_nome" Caption="Autor" ReadOnly="True" />
+            <dx:GridViewDataTextColumn FieldName="aut_nm_nome" Caption="Autor" />
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="100" FieldName="liv_ds_resumo" Caption="Resumo" />
 
             <dx:GridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true" />
         </Columns>
 
-        <SettingsEditing Mode="Batch" />
+        <%-- descobrir o porquê só funcionar com EDITFORM--%>
+        <SettingsEditing Mode="EditForm" />
     </dx:ASPxGridView>
 </asp:Content>

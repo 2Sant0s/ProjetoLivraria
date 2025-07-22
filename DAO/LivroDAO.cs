@@ -22,22 +22,51 @@ namespace ProjetoLivraria.DAO
                 try
                 {
                     ioConexao.Open();
+
                     if (adcIdLivro != null)
                     {
-                        // MÉTODO DE LISTAGEM
                         ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS WHERE LIV_ID_LIVRO = @idLivro", ioConexao);
                         ioQuery.Parameters.Add(new SqlParameter("@idLivro", adcIdLivro));
                     }
                     else
                     {
-                        ioQuery = new SqlCommand(@"SELECT * FROM LIV_LIVROS", ioConexao);
+                        ioQuery = new SqlCommand(@"
+               
+       SELECT 
+         LIV.LIV_ID_LIVRO,
+         LIV.LIV_ID_TIPO_LIVRO,
+         LIV.LIV_ID_EDITOR,
+         LIV.LIV_NM_TITULO,
+         LIV.LIV_VL_PRECO,
+         LIV.LIV_PC_ROYALTY,
+         LIV.LIV_DS_RESUMO,
+		 EDI.EDI_NM_EDITOR,
+         LIV.LIV_NU_EDICAO,
+         AUT.AUT_NM_NOME
+     FROM LIV_LIVROS LIV
+	  JOIN LIA_LIVRO_AUTOR LIA ON LIV.LIV_ID_LIVRO = LIA.LIA_ID_LIVRO
+	  JOIN AUT_AUTORES AUT ON LIA_ID_AUTOR = AUT.AUT_ID_AUTOR
+	  JOIN EDI_EDITORES EDI on LIV.LIV_ID_EDITOR = EDI.EDI_ID_EDITOR
+", ioConexao);
                     }
+
                     using (SqlDataReader loReader = ioQuery.ExecuteReader())
                     {
                         while (loReader.Read())
                         {
-                            Livro loNovoLivro = new Livro(loReader.GetDecimal(0), loReader.GetDecimal(1), loReader.GetDecimal(2), loReader.GetString(3),
-                                loReader.GetDecimal(4), loReader.GetDecimal(5), loReader.GetString(6), loReader.GetInt32(7));
+                            decimal idLivro = loReader.IsDBNull(0) ? 0 : loReader.GetDecimal(0);
+                            decimal tipoLivro = loReader.IsDBNull(1) ? 0 : loReader.GetDecimal(1);
+                            decimal idEditor = loReader.IsDBNull(2) ? 0 : loReader.GetDecimal(2);
+                            string titulo = loReader.IsDBNull(3) ? "" : loReader.GetString(3);
+                            decimal preco = loReader.IsDBNull(4) ? 0 : loReader.GetDecimal(4);
+                            decimal royalty = loReader.IsDBNull(5) ? 0 : loReader.GetDecimal(5);
+                            string resumo = loReader.IsDBNull(6) ? "" : loReader.GetString(6);
+                            string nomeEditor = loReader.IsDBNull(7) ? "" : loReader.GetString(7);   // se quiser salvar no modelo
+                            int edicao = loReader.IsDBNull(8) ? 0 : loReader.GetInt32(8);
+                            string nomeAutor = loReader.IsDBNull(9) ? "" : loReader.GetString(9);
+
+                            Livro loNovoLivro = new Livro(idLivro, tipoLivro, idEditor, titulo, preco, royalty, resumo, edicao, nomeAutor);
+
                             loListAutores.Add(loNovoLivro);
                         }
                         loReader.Close();
@@ -45,7 +74,7 @@ namespace ProjetoLivraria.DAO
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Erro ao tentar buscar livros.");
+                    throw new Exception("Erro ao tentar buscar livros. " + ex.Message);
                 }
             }
             return loListAutores;

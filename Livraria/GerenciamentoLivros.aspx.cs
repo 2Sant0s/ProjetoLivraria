@@ -99,6 +99,7 @@ namespace ProjetoLivraria.Livraria
             try
             {
 
+
                 this.ListaLivros = this.ioLivrosDAO.BuscaLivro();
                 this.gvGerenciamentoLivros.DataSource = this.ListaLivros.OrderBy(loLivro => loLivro.liv_nm_titulo);
                 this.gvGerenciamentoLivros.DataBind();
@@ -135,6 +136,7 @@ namespace ProjetoLivraria.Livraria
             }
             catch (Exception ex)
             {
+
                 HttpContext.Current.Response.Write("<script>alert('Falha ao tentar recuperar Livros');</script>");
                 throw new Exception(ex.Message);
             }
