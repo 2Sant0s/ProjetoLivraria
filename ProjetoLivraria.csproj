@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO\AutoresDAO.cs" />
+    <Compile Include="DAO\LivroCompletoDAO.cs" />
     <Compile Include="DAO\EditoresDAO.cs" />
     <Compile Include="DAO\LivroAutorDAO.cs" />
     <Compile Include="DAO\LivroDAO.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Livraria\GerenciamentoLivros.aspx.designer.cs">
       <DependentUpon>GerenciamentoLivros.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\LivroCompleto.cs" />
     <Compile Include="Models\LivrosEAutores.cs" />
     <Compile Include="Models\Autores.cs" />
     <Compile Include="Models\Editores.cs" />

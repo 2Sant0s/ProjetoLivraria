@@ -53,6 +53,47 @@ namespace ProjetoLivraria.DAO
             }
             return loListAutores;
         }
+        public BindingList<Autores> BuscaAutoresNome(string nomeParcial)
+        {
+            BindingList<Autores> loListAutores = new BindingList<Autores>();
+
+            using (ioConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString))
+            {
+                try
+                {
+                    ioConexao.Open();
+
+                    ioQuery = new SqlCommand(@"
+                SELECT AUT_ID_AUTOR, AUT_NM_NOME, AUT_DS_EMAIL, AUT_DS_TELEFONE 
+                FROM AUT_AUTORES 
+                WHERE AUT_NM_NOME LIKE @nome", ioConexao);
+
+                    // Usa '%' para buscar qualquer parte do nome
+                    ioQuery.Parameters.Add(new SqlParameter("@nome", "%" + nomeParcial + "%"));
+
+                    using (SqlDataReader loReader = ioQuery.ExecuteReader())
+                    {
+                        while (loReader.Read())
+                        {
+                            Autores loNovoAutor = new Autores(
+                                loReader.GetDecimal(0),
+                                loReader.GetString(1),
+                                loReader.GetString(2),
+                                loReader.GetString(3));
+                            loListAutores.Add(loNovoAutor);
+                        }
+                        loReader.Close();
+                    }
+                }
+                catch
+                {
+                    throw new Exception("Erro ao tentar buscar o(s) autor(s) pelo nome.");
+                }
+            }
+
+            return loListAutores;
+        }
+
         public int InsereAutor(Autores aoNovoAutor)
         {
             if (aoNovoAutor == null)
@@ -129,6 +170,7 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
+
     }
 
 }

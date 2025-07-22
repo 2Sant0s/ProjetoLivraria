@@ -18,6 +18,8 @@ namespace ProjetoLivraria.Livraria
         TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO();
         AutoresDAO ioAutoresDAO = new AutoresDAO();
         LivrosEAutoresDAO ioLivrosEAutoresDAO = new LivrosEAutoresDAO();
+        LivroCompletoDAO ioLivroCompletoDao = new LivroCompletoDAO();
+
         public BindingList<Livro> ListaLivros
         {
             get
@@ -96,16 +98,21 @@ namespace ProjetoLivraria.Livraria
         {
             try
             {
+
                 this.ListaLivros = this.ioLivrosDAO.BuscaLivro();
                 this.gvGerenciamentoLivros.DataSource = this.ListaLivros.OrderBy(loLivro => loLivro.liv_nm_titulo);
                 this.gvGerenciamentoLivros.DataBind();
+
+
+                //var listaLivrosCompletos = this.ioLivroCompletoDao.BuscaLivrosCompletos();
+                //this.gvGerenciamentoLivros.DataSource = listaLivrosCompletos.OrderBy(loLivro => loLivro.liv_nm_titulo);
+                //this.gvGerenciamentoLivros.DataBind();
 
                 this.ListaTipoLivros = this.ioTipoLivroDAO.BuscaTipoLivro();
                 this.cbCadastroCategoria.DataSource = this.ListaTipoLivros.OrderBy(loTipoLivro => loTipoLivro.til_ds_descricao);
                 this.cbCadastroCategoria.TextField = "til_ds_descricao";
                 this.cbCadastroCategoria.ValueField = "til_id_tipo_livro";
                 this.cbCadastroCategoria.DataBind();
-                //this.cbCadastroTipoLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
 
                 this.ListaAutores = this.ioAutoresDAO.BuscaAutores();
                 this.cbCadastroAutorLivro.DataSource = this.ListaAutores.OrderBy(loAutor => loAutor.aut_nm_nome);
@@ -113,10 +120,6 @@ namespace ProjetoLivraria.Livraria
                 this.cbCadastroAutorLivro.ValueField = "aut_id_autor";
                 this.cbCadastroAutorLivro.DataBind();
 
-                //this.cbCadastroAutorLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
-                //this.ListaAutores = this.ioAutoresDAO.BuscaAutores();
-                //this.gvGerenciamentoAutores.DataSource = this.ListaAutores.OrderBy(loAutor => loAutor.aut_nm_nome);
-                //this.gvGerenciamentoAutores.DataBind();
 
                 this.ListaEditoras = this.ioEditoraDAO.BuscaEditores();
                 this.cbCadastroEditorLivro.DataSource = this.ListaEditoras.OrderBy(loEditor => loEditor.edi_nm_editor);
@@ -129,6 +132,7 @@ namespace ProjetoLivraria.Livraria
             catch (Exception ex)
             {
                 HttpContext.Current.Response.Write("<script>alert('Falha ao tentar recuperar Livros');</script>");
+                throw new Exception(ex.Message);
             }
         }
 
@@ -153,7 +157,7 @@ namespace ProjetoLivraria.Livraria
 
                 LivrosEAutores loLeA = new LivrosEAutores(ldcIdAutor, ldcIdLivro, lsRoyalty);
                 this.ioLivrosEAutoresDAO.InsereLivroEAutores(loLeA);
-
+                // fazer update do LivroEAutores?
                 HttpContext.Current.Response.Write("<script>alert('Livro cadastrado com sucesso!')</script>");
             }
             catch (Exception ex)
@@ -246,9 +250,11 @@ namespace ProjetoLivraria.Livraria
                 Livro livro = new Livro(LivroId, TipoLivro, EditoraLivro, TituloLivro, PrecoLivro, RoyaltyLivro, ResumoLivro, EdicaoLivro) { };
                 int qtdLinhasAfetadas = ioLivrosDAO.AtualizaLivro(livro);
 
+                //LivrosEAutores loLeA = new LivrosEAutores(AutorLivro, LivroId, RoyaltyLivro);
+                //this.ioLivrosEAutoresDAO.AtualizaLivroEAutor(loLeA);
+
                 e.Cancel = true;
                 this.gvGerenciamentoLivros.CancelEdit();
-
                 CarregaDados();
 
             }
@@ -283,7 +289,6 @@ namespace ProjetoLivraria.Livraria
                 gvGerenciamentoLivros.JSProperties["cpRedirectToLivros"] = true;
             }
         }
-        // esse método é necessário? aqui ***
         protected void RedirectLivros(string idAutorString, string controlID)
         {
             switch (controlID)
