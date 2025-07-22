@@ -7,6 +7,7 @@ namespace ProjetoLivraria.Models
     {
         public decimal liv_id_livro { get; set; }
         public decimal liv_id_tipo_livro { get; set; }
+        public string til_ds_descricao { get; set; }
         public decimal liv_id_editor { get; set; }
         public string liv_nm_titulo { get; set; }
         public decimal liv_vl_preco { get; set; }
@@ -42,7 +43,7 @@ namespace ProjetoLivraria.Models
             this.liv_nu_edicao = edicao;
             this.aut_nm_nome = nomeAutor;
         }
-        public Livro(decimal idLivro, decimal idTipoLivro, decimal idEditor, string titulo, decimal preco, decimal royalty, string resumo, int edicao, string nomeAutor, string nomeEditor)
+        public Livro(decimal idLivro, decimal idTipoLivro, decimal idEditor, string titulo, decimal preco, decimal royalty, string resumo, int edicao, string nomeAutor, string nomeEditor, string til_ds_descricao)
         {
             this.liv_id_livro = idLivro;
             this.liv_id_tipo_livro = idTipoLivro;
@@ -54,6 +55,7 @@ namespace ProjetoLivraria.Models
             this.liv_nu_edicao = edicao;
             this.aut_nm_nome = nomeAutor;
             this.edi_nm_nome = nomeEditor; // novo campo
+            this.til_ds_descricao = til_ds_descricao;
         }
     }
 }

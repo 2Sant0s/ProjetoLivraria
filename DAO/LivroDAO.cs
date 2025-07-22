@@ -32,21 +32,23 @@ namespace ProjetoLivraria.DAO
                     {
                         ioQuery = new SqlCommand(@"
                
-       SELECT 
-         LIV.LIV_ID_LIVRO,
-         LIV.LIV_ID_TIPO_LIVRO,
-         LIV.LIV_ID_EDITOR,
-         LIV.LIV_NM_TITULO,
-         LIV.LIV_VL_PRECO,
-         LIV.LIV_PC_ROYALTY,
-         LIV.LIV_DS_RESUMO,
-		 EDI.EDI_NM_EDITOR,
-         LIV.LIV_NU_EDICAO,
-         AUT.AUT_NM_NOME
-     FROM LIV_LIVROS LIV
-	  JOIN LIA_LIVRO_AUTOR LIA ON LIV.LIV_ID_LIVRO = LIA.LIA_ID_LIVRO
-	  JOIN AUT_AUTORES AUT ON LIA_ID_AUTOR = AUT.AUT_ID_AUTOR
-	  JOIN EDI_EDITORES EDI on LIV.LIV_ID_EDITOR = EDI.EDI_ID_EDITOR
+   	    SELECT 
+    LIV.LIV_ID_LIVRO,
+    LIV.LIV_ID_TIPO_LIVRO,
+    LIV.LIV_ID_EDITOR,
+    LIV.LIV_NM_TITULO,
+    LIV.LIV_VL_PRECO,
+    LIV.LIV_PC_ROYALTY,
+    LIV.LIV_DS_RESUMO,
+ EDI.EDI_NM_EDITOR,
+    LIV.LIV_NU_EDICAO,
+    AUT.AUT_NM_NOME,
+	TIL.TIL_DS_DESCRICAO
+FROM LIV_LIVROS LIV
+ JOIN LIA_LIVRO_AUTOR LIA ON LIV.LIV_ID_LIVRO = LIA.LIA_ID_LIVRO
+ JOIN AUT_AUTORES AUT ON LIA_ID_AUTOR = AUT.AUT_ID_AUTOR
+ JOIN EDI_EDITORES EDI on LIV.LIV_ID_EDITOR = EDI.EDI_ID_EDITOR
+ JOIN TIL_TIPO_LIVRO TIL on LIV.LIV_ID_TIPO_LIVRO = TIL.TIL_ID_TIPO_LIVRO
 ", ioConexao);
                     }
 
@@ -64,8 +66,9 @@ namespace ProjetoLivraria.DAO
                             string nomeEditor = loReader.IsDBNull(7) ? "" : loReader.GetString(7);   // se quiser salvar no modelo
                             int edicao = loReader.IsDBNull(8) ? 0 : loReader.GetInt32(8);
                             string nomeAutor = loReader.IsDBNull(9) ? "" : loReader.GetString(9);
+                            string descricaoLivro = loReader.IsDBNull(9) ? "" : loReader.GetString(10);
 
-                            Livro loNovoLivro = new Livro(idLivro, tipoLivro, idEditor, titulo, preco, royalty, resumo, edicao, nomeAutor, nomeEditor);
+                            Livro loNovoLivro = new Livro(idLivro, tipoLivro, idEditor, titulo, preco, royalty, resumo, edicao, nomeAutor, nomeEditor, descricaoLivro);
 
                             loListAutores.Add(loNovoLivro);
                         }
