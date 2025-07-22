@@ -183,9 +183,11 @@ namespace ProjetoLivraria.Livraria
         }
         protected void gvGerenciamentoLivros_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
         {
+                HttpContext.Current.Response.Write("<script>alert('Erro no cadastro do Livro')</script>");
             try
             {
                 decimal LivroId = Convert.ToDecimal(e.Keys["liv_id_livro"]);
+                decimal AutorId = Convert.ToDecimal(e.Keys["aut_id_autor"]);
                 string TituloLivro = Convert.ToString(e.NewValues["liv_nm_titulo"]);
                 decimal PrecoLivro = Convert.ToDecimal(e.NewValues["liv_vl_preco"]);
                 int EdicaoLivro = Convert.ToInt32(e.NewValues["liv_nu_edicao"]);
@@ -219,7 +221,7 @@ namespace ProjetoLivraria.Livraria
 
                 //if (AutorLivro == 0)
                 //{
-                //    HttpContext.Current.Response.Write("<script>alert('Selecione o autor do livro.')</script>");
+                //    HttpContext.Current.Response.Write("<script>alert('Selecione o autor do loLivro.')</script>");
                 //    e.Cancel = true;
                 //    return;
                 //}
@@ -252,11 +254,13 @@ namespace ProjetoLivraria.Livraria
                     return;
                 }
 
-                Livro livro = new Livro(LivroId, TipoLivro, EditoraLivro, TituloLivro, PrecoLivro, RoyaltyLivro, ResumoLivro, EdicaoLivro) { };
+                Livro livro = new Livro(LivroId, TipoLivro, EditoraLivro, TituloLivro, PrecoLivro, RoyaltyLivro, ResumoLivro, EdicaoLivro) { 
+                    aut_id_autor = AutorId
+                };
                 int qtdLinhasAfetadas = ioLivrosDAO.AtualizaLivro(livro);
 
-                //LivrosEAutores loLeA = new LivrosEAutores(AutorLivro, LivroId, RoyaltyLivro);
-                //this.ioLivrosEAutoresDAO.AtualizaLivroEAutor(loLeA);
+                LivrosEAutores loLeA = new LivrosEAutores(AutorId, LivroId, RoyaltyLivro);
+                this.ioLivrosEAutoresDAO.AtualizaLivroEAutor(loLeA);
 
                 e.Cancel = true;
                 this.gvGerenciamentoLivros.CancelEdit();
@@ -277,35 +281,6 @@ namespace ProjetoLivraria.Livraria
 
             e.Cancel = true;
             this.gvGerenciamentoLivros.CancelEdit();
-        }
-        protected void gvGerenciamentoLivros_CustomButtonCallBack(object sender, ASPxGridViewCustomButtonCallbackEventArgs e)
-        {
-            decimal LivroId = Convert.ToDecimal(gvGerenciamentoLivros.GetRowValues(e.VisibleIndex, "liv_id_livro"));
-            var livro = ioLivrosDAO.BuscaLivro(LivroId).FirstOrDefault();
-
-            if (e.ButtonID == "btnAutorInfo")
-            {
-
-            }
-            else if (e.ButtonID == "btnLivros")
-            {
-                Session["SessionLivroSelecionado"] = livro;
-
-                gvGerenciamentoLivros.JSProperties["cpRedirectToLivros"] = true;
-            }
-        }
-        protected void RedirectLivros(string idAutorString, string controlID)
-        {
-            switch (controlID)
-            {
-                case "btnLivros":
-                    decimal id = Convert.ToDecimal(idAutorString);
-                    AutoresSession = this.ioAutoresDAO.BuscaAutores(id).FirstOrDefault();
-                    Response.Redirect("/Livraria/GerenciamentoLivros.aspx");
-                    break;
-
-                default: break;
-            }
         }
     }
 }

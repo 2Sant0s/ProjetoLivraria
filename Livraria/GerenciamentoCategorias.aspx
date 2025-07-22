@@ -60,7 +60,6 @@
                
                 <CustomButtons>
                     <dx:GridViewCommandColumnCustomButton ID="btnLivros" Text="Livros" />
-                    <dx:GridViewCommandColumnCustomButton ID="btnAutorInfo" Text="Informações" />
                 </CustomButtons>
             </dx:GridViewCommandColumn>
 

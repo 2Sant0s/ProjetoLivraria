@@ -88,7 +88,6 @@
             <dx:GridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true">
                 <CustomButtons>
                     <dx:GridViewCommandColumnCustomButton ID="btnLivros" Text="Livros" />
-                    <dx:GridViewCommandColumnCustomButton ID="btnAutorInfo" Text="Informações" />
                 </CustomButtons>
             </dx:GridViewCommandColumn>
 

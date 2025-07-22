@@ -162,6 +162,7 @@ namespace ProjetoLivraria.Livraria
                 case "btnLivros":
                     decimal id = Convert.ToDecimal(idAutorString);
                     AutoresSession = this.ioAutoresDAO.BuscaAutores(id).FirstOrDefault();
+
                     Response.Redirect("/Livraria/GerenciamentoLivros.aspx");
                     break;
 

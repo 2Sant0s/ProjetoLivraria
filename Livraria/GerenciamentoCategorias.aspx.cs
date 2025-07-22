@@ -14,7 +14,7 @@ namespace ProjetoLivraria.Livraria
     {
         TipoLivroDAO ioTipoLivroDAO = new TipoLivroDAO();
 
-        public TipoLivro CategoriasSessao
+        public TipoLivro loTiposLivro
         {
             get { return (TipoLivro)Session["SessionCategoriaSelecionada"]; }
             set { Session["SessionCategoriaSelecionada"] = value; }
@@ -151,7 +151,7 @@ namespace ProjetoLivraria.Livraria
             }
             else if (e.ButtonID == "btnLivros")
             {
-                Session["SessionCategoriaSelecionada"] = CategoriasSessao;
+                Session["SessionCategoriaSelecionada"] = loTiposLivro;
 
                 gvGerenciamentoCategoria.JSProperties["cpRedirectToLivros"] = true;
             }
@@ -163,7 +163,7 @@ namespace ProjetoLivraria.Livraria
             {
                 case "btnLivros":
                     decimal id = Convert.ToDecimal(idTipoLivroString);
-                    CategoriasSessao = this.ioTipoLivroDAO.BuscaTipoLivro(id).First();
+                    loTiposLivro = this.ioTipoLivroDAO.BuscaTipoLivro(id).First();
 
                     Response.Redirect("/Livraria/GerenciamentoLivros.aspx");
                     break;

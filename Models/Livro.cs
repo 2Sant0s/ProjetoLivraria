@@ -6,6 +6,7 @@ namespace ProjetoLivraria.Models
     public class Livro
     {
         public decimal liv_id_livro { get; set; }
+        public decimal aut_id_autor { get; set; }
         public decimal liv_id_tipo_livro { get; set; }
         public string til_ds_descricao { get; set; }
         public decimal liv_id_editor { get; set; }
@@ -13,6 +14,7 @@ namespace ProjetoLivraria.Models
         public decimal liv_vl_preco { get; set; }
         public decimal liv_pc_royalty { get; set; }
         public string liv_ds_resumo { get; set; }
+
         public string edi_nm_nome { get; set; }
         public int liv_nu_edicao { get; set; }
         public string aut_nm_nome { get; set; } // Novo campo adicionado

@@ -170,7 +170,5 @@ namespace ProjetoLivraria.DAO
             }
             return liQtdRegistrosInseridos;
         }
-
     }
-
 }

@@ -145,19 +145,20 @@
         <Columns>
 
             <dx:GridViewDataTextColumn FieldName="liv_id_livro" Caption="ID" Visible="false" />
+            <dx:GridViewDataTextColumn FieldName="aut_id_autor" Visible="False" />
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="20" FieldName="liv_nm_titulo" Caption="Título" />
             <dx:GridViewDataTextColumn FieldName="liv_vl_preco" Caption="Preço" />
             <dx:GridViewDataTextColumn FieldName="liv_nu_edicao" Caption="Edição" />
-            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="edi_nm_nome" Caption="Editor"  ReadOnly="True" />
+            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="edi_nm_nome" Caption="Editor" />
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="til_ds_descricao" Caption="Categoria" />
             <dx:GridViewDataTextColumn FieldName="liv_pc_royalty" Caption="Royalty (%)" />
-            <dx:GridViewDataTextColumn FieldName="aut_nm_nome" Caption="Autor"  ReadOnly="True"/>
+            <dx:GridViewDataTextColumn FieldName="aut_nm_nome" Caption="Autor"/>
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="100" FieldName="liv_ds_resumo" Caption="Resumo" />
 
             <dx:GridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true" />
         </Columns>
 
         <%-- descobrir o porquê só funcionar com EDITFORM--%>
-     <SettingsEditing Mode="Inline" />
+     <SettingsEditing Mode="EditForm" />
     </dx:ASPxGridView>
 </asp:Content>

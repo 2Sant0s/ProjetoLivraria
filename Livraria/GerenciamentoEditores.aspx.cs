@@ -168,15 +168,15 @@ namespace ProjetoLivraria.Livraria
                 gvGerenciamentoEditores.JSProperties["cpRedirectToLivros"] = true;
             }
         }
-        protected void RedirectLivros(String idAutorString, string controlID)
+        protected void RedirectLivros(String idEditorString, string controlID)
         {
             switch (controlID)
             {
                 case "btnLivros":
-                    decimal id = Convert.ToDecimal(idAutorString);
+                    decimal id = Convert.ToDecimal(idEditorString);
                     EditoresSessao = this.ioEditoresDAO.BuscaEditores(id).First();
 
-                    Response.Redirect("/Livraria/GerenciamentoEditores.aspx");
+                    Response.Redirect("/Livraria/GerenciamentoLivros.aspx");
                     break;
                 default: break;
             }

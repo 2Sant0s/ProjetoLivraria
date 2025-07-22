@@ -80,9 +80,9 @@ namespace ProjetoLivraria.DAO
 
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
-                catch
+                catch (Exception ex)
                 {
-                    throw new Exception("Erro ao tentar cadastrar registro de livro e autor.");
+                    throw new Exception("Erro ao tentar cadastrar registro de livro e autor."+ex.Message);
                 }
             }
             return liQtdRegistrosInseridos;
