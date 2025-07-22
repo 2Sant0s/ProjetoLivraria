@@ -42,5 +42,18 @@ namespace ProjetoLivraria.Models
             this.liv_nu_edicao = edicao;
             this.aut_nm_nome = nomeAutor;
         }
+        public Livro(decimal idLivro, decimal idTipoLivro, decimal idEditor, string titulo, decimal preco, decimal royalty, string resumo, int edicao, string nomeAutor, string nomeEditor)
+        {
+            this.liv_id_livro = idLivro;
+            this.liv_id_tipo_livro = idTipoLivro;
+            this.liv_id_editor = idEditor;
+            this.liv_nm_titulo = titulo;
+            this.liv_vl_preco = preco;
+            this.liv_pc_royalty = royalty;
+            this.liv_ds_resumo = resumo;
+            this.liv_nu_edicao = edicao;
+            this.aut_nm_nome = nomeAutor;
+            this.edi_nm_nome = nomeEditor; // novo campo
+        }
     }
 }

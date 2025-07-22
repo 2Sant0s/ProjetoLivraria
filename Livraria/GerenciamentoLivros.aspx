@@ -148,7 +148,7 @@
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="20" FieldName="liv_nm_titulo" Caption="Título" />
             <dx:GridViewDataTextColumn FieldName="liv_vl_preco" Caption="Preço" />
             <dx:GridViewDataTextColumn FieldName="liv_nu_edicao" Caption="Edição" />
-            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="liv_id_editor" Caption="Editor" />
+            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="edi_nm_nome" Caption="Editor" />
             <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="liv_id_tipo_livro" Caption="Categoria" />
             <dx:GridViewDataTextColumn FieldName="liv_pc_royalty" Caption="Royalty (%)" />
             <dx:GridViewDataTextColumn FieldName="aut_nm_nome" Caption="Autor" />
@@ -158,6 +158,6 @@
         </Columns>
 
         <%-- descobrir o porquê só funcionar com EDITFORM--%>
-        <SettingsEditing Mode="EditForm" />
+     <SettingsEditing Mode="Inline" />
     </dx:ASPxGridView>
 </asp:Content>

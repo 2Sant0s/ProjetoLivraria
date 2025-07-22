@@ -65,7 +65,7 @@ namespace ProjetoLivraria.DAO
                             int edicao = loReader.IsDBNull(8) ? 0 : loReader.GetInt32(8);
                             string nomeAutor = loReader.IsDBNull(9) ? "" : loReader.GetString(9);
 
-                            Livro loNovoLivro = new Livro(idLivro, tipoLivro, idEditor, titulo, preco, royalty, resumo, edicao, nomeAutor);
+                            Livro loNovoLivro = new Livro(idLivro, tipoLivro, idEditor, titulo, preco, royalty, resumo, edicao, nomeAutor, nomeEditor);
 
                             loListAutores.Add(loNovoLivro);
                         }
