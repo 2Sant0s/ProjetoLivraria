@@ -104,6 +104,10 @@ namespace ProjetoLivraria.Livraria
                 this.gvGerenciamentoLivros.DataBind();
 
 
+                //this.ListaEditoras = this.ioEditoraDAO.BuscaEditores();
+                //this.gvGerenciamentoLivros.DataSource = this.ListaEditoras.OrderBy(loEdit => loEdit.edi_id_editor);
+                //this.gvGerenciamentoLivros.DataBind();
+
                 //var listaLivrosCompletos = this.ioLivroCompletoDao.BuscaLivrosCompletos();
                 //this.gvGerenciamentoLivros.DataSource = listaLivrosCompletos.OrderBy(loLivro => loLivro.liv_nm_titulo);
                 //this.gvGerenciamentoLivros.DataBind();
@@ -120,12 +124,12 @@ namespace ProjetoLivraria.Livraria
                 this.cbCadastroAutorLivro.ValueField = "aut_id_autor";
                 this.cbCadastroAutorLivro.DataBind();
 
-
                 this.ListaEditoras = this.ioEditoraDAO.BuscaEditores();
                 this.cbCadastroEditorLivro.DataSource = this.ListaEditoras.OrderBy(loEditor => loEditor.edi_nm_editor);
                 this.cbCadastroEditorLivro.TextField = "edi_nm_editor";
                 this.cbCadastroEditorLivro.ValueField = "edi_id_editor";
                 this.cbCadastroEditorLivro.DataBind();
+
                 //this.cbCadastroEditoraLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
 
             }
@@ -180,14 +184,13 @@ namespace ProjetoLivraria.Livraria
             try
             {
                 decimal LivroId = Convert.ToDecimal(e.Keys["liv_id_livro"]);
-                decimal TipoLivro = Convert.ToDecimal(e.NewValues["liv_tipo_livro"]);
-                decimal EditoraLivro = Convert.ToDecimal(e.NewValues["liv_editora_livro"]);
-                string TituloLivro = Convert.ToString(e.NewValues["liv_nm_titulo"].ToString()); // possível erro
-                decimal AutorLivro = Convert.ToDecimal(e.NewValues["liv_autor_livro"]);
-                decimal PrecoLivro = Convert.ToDecimal(e.NewValues["liv_preco_livro"]);
-                decimal RoyaltyLivro = Convert.ToDecimal(e.NewValues["liv_royalty_livro"]);
-                string ResumoLivro = Convert.ToString(e.NewValues["liv_ds_resumo"].ToString());
-                int EdicaoLivro = Convert.ToInt32(e.NewValues["liv_edicao_livro"]);
+                string TituloLivro = Convert.ToString(e.NewValues["liv_nm_titulo"]);
+                decimal PrecoLivro = Convert.ToDecimal(e.NewValues["liv_vl_preco"]);
+                int EdicaoLivro = Convert.ToInt32(e.NewValues["liv_nu_edicao"]);
+                decimal EditoraLivro = Convert.ToDecimal(e.NewValues["liv_id_editor"]);
+                decimal TipoLivro = Convert.ToDecimal(e.NewValues["liv_id_tipo_livro"]);
+                decimal RoyaltyLivro = Convert.ToDecimal(e.NewValues["liv_pc_royalty"]);
+                string ResumoLivro = Convert.ToString(e.NewValues["liv_ds_resumo"]);
 
 
                 // entender o comportamento dessas condicionais na tela.
@@ -212,12 +215,12 @@ namespace ProjetoLivraria.Livraria
                     return;
                 }
 
-                if (AutorLivro == 0)
-                {
-                    HttpContext.Current.Response.Write("<script>alert('Selecione o autor do livro.')</script>");
-                    e.Cancel = true;
-                    return;
-                }
+                //if (AutorLivro == 0)
+                //{
+                //    HttpContext.Current.Response.Write("<script>alert('Selecione o autor do livro.')</script>");
+                //    e.Cancel = true;
+                //    return;
+                //}
 
                 if (PrecoLivro <= 0)
                 {

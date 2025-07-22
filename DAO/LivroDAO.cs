@@ -30,7 +30,7 @@ namespace ProjetoLivraria.DAO
                     }
                     else
                     {
-                        ioQuery = new SqlCommand("SELECT * FROM LIV_LIVROS", ioConexao);
+                        ioQuery = new SqlCommand(@"SELECT * FROM LIV_LIVROS", ioConexao);
                     }
                     using (SqlDataReader loReader = ioQuery.ExecuteReader())
                     {
@@ -118,25 +118,21 @@ namespace ProjetoLivraria.DAO
                 try
                 {
                     ioConexao.Open();
-                    ioQuery = new SqlCommand("UPDATE LIV_LIVROS SET " +
-                        "LIV_NM_TITULO = @nomeTitulo, " +
-                        "LIV_VL_PRECO = @precoLivro, " +
-                        "LIV_PC_ROYALTY = @royaltyLivro, " +
-                        "LIV_DS_RESUMO = @resumoLivro, " +
-                        "LIV_NU_EDICAO = @numeroEdicaoLivro " +
-                        "WHERE LIV_ID_LIVRO = @idLivro", ioConexao);
+                    ioQuery = new SqlCommand("UPDATE LIV_LIVROS SET LIV_ID_TIPO_LIVRO = @idTipoLivro, LIV_ID_EDITOR = @idEditor, LIV_NM_TITULO = @nomeTitulo, LIV_VL_PRECO = @valorPreco, LIV_PC_ROYALTY = @royalty, LIV_DS_RESUMO = @resumo, LIV_NU_EDICAO = @numeroEdicao WHERE LIV_ID_LIVRO = @idLivro", ioConexao);
                     // PROV. TEM QUE CORRIGIR ALGO AQUI...
                     ioQuery.Parameters.Add(new SqlParameter("@idLivro", aoNovoLivro.liv_id_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@idTipoLivro", aoNovoLivro.liv_id_tipo_livro));
+                    ioQuery.Parameters.Add(new SqlParameter("@idEditor", aoNovoLivro.liv_id_editor));
                     ioQuery.Parameters.Add(new SqlParameter("@nomeTitulo", aoNovoLivro.liv_nm_titulo));
-                    ioQuery.Parameters.Add(new SqlParameter("@precoLivro", aoNovoLivro.liv_vl_preco));
-                    ioQuery.Parameters.Add(new SqlParameter("@royaltyLivro", aoNovoLivro.liv_pc_royalty));
-                    ioQuery.Parameters.Add(new SqlParameter("@resumoLivro", aoNovoLivro.liv_ds_resumo));
-                    ioQuery.Parameters.Add(new SqlParameter("@numeroEdicaoLivro", aoNovoLivro.liv_nu_edicao));
+                    ioQuery.Parameters.Add(new SqlParameter("@valorPreco", aoNovoLivro.liv_vl_preco));
+                    ioQuery.Parameters.Add(new SqlParameter("@royalty", aoNovoLivro.liv_pc_royalty));
+                    ioQuery.Parameters.Add(new SqlParameter("@resumo", aoNovoLivro.liv_ds_resumo));
+                    ioQuery.Parameters.Add(new SqlParameter("@numeroEdicao", aoNovoLivro.liv_nu_edicao));
                     liQtdRegistrosInseridos = ioQuery.ExecuteNonQuery();
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("Erro ao tentar atualizar livro.");
+                    throw new Exception("Erro ao tentar atualizar livro." +ex.Message);
                 }
             }
             return liQtdRegistrosInseridos;
