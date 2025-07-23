@@ -99,19 +99,9 @@ namespace ProjetoLivraria.Livraria
             try
             {
 
-
                 this.ListaLivros = this.ioLivrosDAO.BuscaLivro();
                 this.gvGerenciamentoLivros.DataSource = this.ListaLivros.OrderBy(loLivro => loLivro.liv_nm_titulo);
                 this.gvGerenciamentoLivros.DataBind();
-
-
-                //this.ListaEditoras = this.ioEditoraDAO.BuscaEditores();
-                //this.gvGerenciamentoLivros.DataSource = this.ListaEditoras.OrderBy(loEdit => loEdit.edi_id_editor);
-                //this.gvGerenciamentoLivros.DataBind();
-
-                //var listaLivrosCompletos = this.ioLivroCompletoDao.BuscaLivrosCompletos();
-                //this.gvGerenciamentoLivros.DataSource = listaLivrosCompletos.OrderBy(loLivro => loLivro.liv_nm_titulo);
-                //this.gvGerenciamentoLivros.DataBind();
 
                 this.ListaTipoLivros = this.ioTipoLivroDAO.BuscaTipoLivro();
                 this.cbCadastroCategoria.DataSource = this.ListaTipoLivros.OrderBy(loTipoLivro => loTipoLivro.til_ds_descricao);
@@ -132,7 +122,6 @@ namespace ProjetoLivraria.Livraria
                 this.cbCadastroEditorLivro.DataBind();
 
                 //this.cbCadastroEditoraLivro.Items.Insert(0, new ListEditItem("Selecione...", null));
-
             }
             catch (Exception ex)
             {
@@ -183,7 +172,7 @@ namespace ProjetoLivraria.Livraria
         }
         protected void gvGerenciamentoLivros_RowUpdating(object sender, ASPxDataUpdatingEventArgs e)
         {
-                HttpContext.Current.Response.Write("<script>alert('Erro no cadastro do Livro')</script>");
+            HttpContext.Current.Response.Write("<script>alert('Erro no cadastro do Livro')</script>");
             try
             {
                 decimal LivroId = Convert.ToDecimal(e.Keys["liv_id_livro"]);
@@ -254,7 +243,8 @@ namespace ProjetoLivraria.Livraria
                     return;
                 }
 
-                Livro livro = new Livro(LivroId, TipoLivro, EditoraLivro, TituloLivro, PrecoLivro, RoyaltyLivro, ResumoLivro, EdicaoLivro) { 
+                Livro livro = new Livro(LivroId, TipoLivro, EditoraLivro, TituloLivro, PrecoLivro, RoyaltyLivro, ResumoLivro, EdicaoLivro)
+                {
                     aut_id_autor = AutorId
                 };
                 int qtdLinhasAfetadas = ioLivrosDAO.AtualizaLivro(livro);

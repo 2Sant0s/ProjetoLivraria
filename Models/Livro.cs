@@ -14,7 +14,8 @@ namespace ProjetoLivraria.Models
         public decimal liv_vl_preco { get; set; }
         public decimal liv_pc_royalty { get; set; }
         public string liv_ds_resumo { get; set; }
-
+        public int edi_id_editor { get; set; }      
+        public int til_id_tipo_livro { get; set; }
         public string edi_nm_nome { get; set; }
         public int liv_nu_edicao { get; set; }
         public string aut_nm_nome { get; set; } // Novo campo adicionado

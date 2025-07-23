@@ -5,7 +5,6 @@
         function OnEndCallback(s, e) {
 
         }
-
         function OnSalvarLivroClick(s, e) {
             if (!ASPxClientEdit.ValidateGroup('MyGroup')) {
                 e.processOnServer = false;
@@ -136,29 +135,71 @@
         </Items>
     </dx:ASPxFormLayout>
 
-    <dx:ASPxGridView ID="gvGerenciamentoLivros" runat="server" ShowInsert="True" AllowEditing="True" Width="100%" KeyFieldName="liv_id_livro"
+    <dx:ASPxGridView ID="gvGerenciamentoLivros" runat="server" ShowInsert="True" AllowEditing="True" Width="100%" KeyFieldName="liv_id_livro" 
         OnRowUpdating="gvGerenciamentoLivros_RowUpdating"
         OnRowDeleting="gvGerenciamentoLivros_RowDeleting">
         <ClientSideEvents EndCallback="OnEndCallback" />
-        <Settings ShowFilterRow="True" />
+          <SettingsSearchPanel Visible="False" />
+        <Settings ShowFilterRow="False" />
 
         <Columns>
-
             <dx:GridViewDataTextColumn FieldName="liv_id_livro" Caption="ID" Visible="false" />
-            <dx:GridViewDataTextColumn FieldName="aut_id_autor" Visible="False" />
-            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="20" FieldName="liv_nm_titulo" Caption="Título" />
+
+            <dx:GridViewDataTextColumn FieldName="liv_nm_titulo" Caption="Título" />
             <dx:GridViewDataTextColumn FieldName="liv_vl_preco" Caption="Preço" />
             <dx:GridViewDataTextColumn FieldName="liv_nu_edicao" Caption="Edição" />
-            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="edi_nm_nome" Caption="Editor" />
-            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="15" FieldName="til_ds_descricao" Caption="Categoria" />
             <dx:GridViewDataTextColumn FieldName="liv_pc_royalty" Caption="Royalty (%)" />
-            <dx:GridViewDataTextColumn FieldName="aut_nm_nome" Caption="Autor"/>
-            <dx:GridViewDataTextColumn PropertiesTextEdit-MaxLength="100" FieldName="liv_ds_resumo" Caption="Resumo" />
+            <dx:GridViewDataTextColumn FieldName="liv_ds_resumo" Caption="Resumo" />
 
+            <dx:GridViewDataTextColumn FieldName="aut_nm_nome" Caption="Autor" ReadOnly="True">
+                <EditItemTemplate>
+                    <dx:ASPxComboBox ID="cbAutorEdit" runat="server"
+                        DataSourceID="AUT_AUTORES"
+                        TextField="aut_nm_nome"
+                        ValueField="aut_id_autor"
+                        Value='<%# Bind("aut_id_autor") %>'>
+                    </dx:ASPxComboBox>
+                </EditItemTemplate>
+            </dx:GridViewDataTextColumn>
+
+            <%-- ** editar um campo de uma GridView utilizando combobox que puxa dados do bd ** --%>
+            <dx:GridViewDataTextColumn FieldName="edi_nm_nome" Caption="Editor">
+                <EditItemTemplate>
+                    <dx:ASPxComboBox ID="cbEditor" runat="server"
+                        DataSourceID="EDI_EDITORES"
+                        ValueField="edi_id_editor"
+                        TextField="EDI_NM_EDITOR"
+                        Value='<%# Bind("edi_id_editor") %>'>
+                    </dx:ASPxComboBox>
+                </EditItemTemplate>
+            </dx:GridViewDataTextColumn>
+
+            <dx:GridViewDataTextColumn FieldName="til_ds_descricao" Caption="Categoria" ReadOnly="True">
+                <EditItemTemplate>
+                    <dx:ASPxComboBox ID="cbCategoriaEdit" runat="server"
+                        DataSourceID="TIL_TIPO_LIVRO"
+                        ValueField="til_id_tipo_livro"
+                        TextField="TIL_DS_DESCRICAO"
+                        Value='<%# Bind("til_tipo_livro") %>'>
+                    </dx:ASPxComboBox>
+                </EditItemTemplate>
+            </dx:GridViewDataTextColumn>
             <dx:GridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true" />
         </Columns>
 
-        <%-- descobrir o porquê só funcionar com EDITFORM--%>
-     <SettingsEditing Mode="EditForm" />
+        <SettingsEditing Mode="Batch" />
     </dx:ASPxGridView>
+
+    <%-- comboBox do gridview puxa dados daqui --%>
+    <asp:SqlDataSource ID="AUT_AUTORES" runat="server"
+        ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+        SelectCommand="SELECT AUT_ID_AUTOR, AUT_NM_NOME FROM AUT_AUTORES" />
+
+    <asp:SqlDataSource ID="EDI_EDITORES" runat="server"
+        ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+        SelectCommand="SELECT EDI_ID_EDITOR, EDI_NM_EDITOR FROM EDI_EDITORES" />
+
+    <asp:SqlDataSource ID="TIL_TIPO_LIVRO" runat="server"
+        ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+        SelectCommand="SELECT til_id_tipo_livro, til_ds_descricao FROM TIL_TIPO_LIVRO" />
 </asp:Content>
