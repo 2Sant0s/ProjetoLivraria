@@ -28,10 +28,6 @@
                 <asp:ContentPlaceHolder ID="MainContent" runat="server">
                 </asp:ContentPlaceHolder>
             </div>
-
-            <div class="footer">
-                <p>&copy; <%: DateTime.Now.Year %> - DevExpress projeto Livraria</p>
-            </div>
         </div>
     </form>
 </body>

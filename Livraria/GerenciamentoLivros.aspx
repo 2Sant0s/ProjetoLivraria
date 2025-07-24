@@ -135,11 +135,11 @@
         </Items>
     </dx:ASPxFormLayout>
 
-    <dx:ASPxGridView ID="gvGerenciamentoLivros" runat="server" ShowInsert="True" AllowEditing="True" Width="100%" KeyFieldName="liv_id_livro" 
+    <dx:ASPxGridView ID="gvGerenciamentoLivros" runat="server" ShowInsert="True" AllowEditing="True" Width="100%" KeyFieldName="liv_id_livro"
         OnRowUpdating="gvGerenciamentoLivros_RowUpdating"
         OnRowDeleting="gvGerenciamentoLivros_RowDeleting">
         <ClientSideEvents EndCallback="OnEndCallback" />
-          <SettingsSearchPanel Visible="False" />
+        <SettingsSearchPanel Visible="False" />
         <Settings ShowFilterRow="False" />
 
         <Columns>
@@ -180,14 +180,14 @@
                         DataSourceID="TIL_TIPO_LIVRO"
                         ValueField="til_id_tipo_livro"
                         TextField="TIL_DS_DESCRICAO"
-                        Value='<%# Bind("til_tipo_livro") %>'>
+                        Value='<%# Bind("til_id_tipo_livro") %>'>
                     </dx:ASPxComboBox>
                 </EditItemTemplate>
             </dx:GridViewDataTextColumn>
             <dx:GridViewCommandColumn ShowEditButton="true" ShowDeleteButton="true" />
         </Columns>
 
-        <SettingsEditing Mode="Batch" />
+        <SettingsEditing Mode="Inline" />
     </dx:ASPxGridView>
 
     <%-- comboBox do gridview puxa dados daqui --%>

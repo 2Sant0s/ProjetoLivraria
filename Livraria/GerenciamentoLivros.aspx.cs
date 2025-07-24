@@ -148,12 +148,12 @@ namespace ProjetoLivraria.Livraria
 
                 Livro loLivro = new Livro(ldcIdLivro, lsIdCategoria, lsIdEditor, lsTitulo, lsPreco, lsRoyalty, lsResumo, lsEdicao);
                 this.ioLivrosDAO.InsereLivro(loLivro);
-                this.CarregaDados();
 
                 LivrosEAutores loLeA = new LivrosEAutores(ldcIdAutor, ldcIdLivro, lsRoyalty);
                 this.ioLivrosEAutoresDAO.InsereLivroEAutores(loLeA);
-                // fazer update do LivroEAutores?
                 HttpContext.Current.Response.Write("<script>alert('Livro cadastrado com sucesso!')</script>");
+
+                this.CarregaDados();
             }
             catch (Exception ex)
             {
@@ -267,10 +267,10 @@ namespace ProjetoLivraria.Livraria
             decimal LivroId = Convert.ToDecimal(e.Keys["liv_id_livro"]);
             Livro livro = this.ListaLivros.FirstOrDefault(a => a.liv_id_livro == LivroId);
             int qtdRegistrosExcluidos = ioLivrosDAO.RemoveLivro(livro);
-            CarregaDados();
 
             e.Cancel = true;
             this.gvGerenciamentoLivros.CancelEdit();
+            CarregaDados();
         }
     }
 }
